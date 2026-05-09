@@ -18,7 +18,7 @@
 
 - **Astro 5** + **Tailwind CSS v4** — 静态站点 + 现代 CSS
 - **Markdown / MDX** — 全部内容用 markdown 写
-- **Mermaid** — 流程图、产业链图
+- **MDX + Astro 信息图组件** — 产业链图、技术结构图、周期罗盘
 - **GitHub Pages** — 免费部署
 - **Copilot CLI** — 用户按需开启 AI 助手做新闻总结、周报更新（详见 `AGENTS.md`）
 

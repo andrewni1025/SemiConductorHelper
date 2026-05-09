@@ -1,0 +1,43 @@
+---
+const tracks = [
+  { segment: 'Fabless / EDA / IP', feature: '轻资产 + 高增速', anchors: ['PE', 'PEG', 'ARR 增速'], examples: 'NVDA / AMD / Synopsys' },
+  { segment: 'Foundry / IDM / 设备', feature: '高 CapEx + 折旧重', anchors: ['EV/EBITDA', '订单能见度', 'DCF 辅助'], examples: 'TSMC / ASML / AMAT' },
+  { segment: '存储', feature: '强周期 + 价格弹性', anchors: ['PB-ROE', 'DRAM 现货价', 'HBM 占比'], examples: 'Micron / SK Hynix' },
+];
+---
+
+<section class="not-prose my-8 rounded-3xl border border-cyan-400/20 bg-white p-5 shadow-xl shadow-cyan-900/5 dark:bg-slate-950 sm:p-6">
+  <p class="font-mono text-xs uppercase tracking-[0.22em] text-brand-600 dark:text-brand-300">Valuation Router</p>
+  <h3 class="mt-2 text-2xl font-black text-slate-950 dark:text-white">先判断商业模式，再选估值锚</h3>
+
+  <div class="mt-6 grid gap-4 lg:grid-cols-3">
+    {tracks.map((track, index) => (
+      <div class="relative rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/70">
+        <span class="absolute right-4 top-4 rounded-full bg-slate-950 px-2.5 py-1 font-mono text-xs text-cyan-200 dark:bg-cyan-300 dark:text-slate-950">
+          0{index + 1}
+        </span>
+        <h4 class="pr-12 text-lg font-black text-slate-950 dark:text-white">{track.segment}</h4>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{track.feature}</p>
+        <div class="mt-4 space-y-2">
+          {track.anchors.map((anchor) => (
+            <div class="rounded-xl border border-cyan-300/20 bg-white px-3 py-2 font-semibold text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+              {anchor}
+            </div>
+          ))}
+        </div>
+        <p class="mt-4 font-mono text-xs text-slate-500 dark:text-slate-400">{track.examples}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="mt-5 grid gap-3 md:grid-cols-2">
+    <div class="rounded-2xl border border-rose-300/30 bg-rose-50 p-4 dark:bg-rose-950/20">
+      <p class="font-bold text-rose-800 dark:text-rose-200">周期股反直觉</p>
+      <p class="mt-1 text-sm leading-relaxed text-slate-700 dark:text-slate-300">低 PE 可能是顶部，高 PE / N/A 可能是底部，因为 EPS 分母在周期里剧烈波动。</p>
+    </div>
+    <div class="rounded-2xl border border-emerald-300/30 bg-emerald-50 p-4 dark:bg-emerald-950/20">
+      <p class="font-bold text-emerald-800 dark:text-emerald-200">Forward 视角更重要</p>
+      <p class="mt-1 text-sm leading-relaxed text-slate-700 dark:text-slate-300">AI 链条的估值核心不是过去 12 个月，而是未来订单、长协与产能瓶颈能兑现多久。</p>
+    </div>
+  </div>
+</section>

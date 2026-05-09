@@ -1,0 +1,57 @@
+---
+const tracks = [
+  {
+    demand: 'AI 数据中心 CapEx',
+    signal: '+50% YoY',
+    chips: 'GPU + HBM + CoWoS + 网络',
+    result: '极度供不应求',
+    color: 'from-cyan-400 to-blue-500',
+  },
+  {
+    demand: '新能源车 / 智驾',
+    signal: '+25% YoY',
+    chips: 'SiC + MCU + CIS + 智驾 SoC',
+    result: '结构性增长',
+    color: 'from-emerald-400 to-teal-500',
+  },
+  {
+    demand: '手机 / PC 复苏',
+    signal: '+5% YoY',
+    chips: 'AP SoC + 存储 + 射频',
+    result: '温和补库存',
+    color: 'from-amber-300 to-orange-500',
+  },
+];
+---
+
+<section class="not-prose my-8 rounded-3xl border border-cyan-400/20 bg-white p-5 shadow-xl shadow-cyan-900/5 dark:bg-slate-950 sm:p-6">
+  <p class="font-mono text-xs uppercase tracking-[0.22em] text-brand-600 dark:text-brand-300">Demand Transmission</p>
+  <h3 class="mt-2 text-2xl font-black text-slate-950 dark:text-white">下游需求如何传导成半导体景气</h3>
+
+  <div class="mt-6 space-y-3">
+    {tracks.map((track) => (
+      <div class="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-900/70 lg:grid-cols-[1fr_auto_1.1fr_auto_1fr] lg:items-center">
+        <div class="rounded-xl bg-white p-3 shadow-sm dark:bg-slate-950">
+          <p class="text-xs text-slate-500 dark:text-slate-400">需求端</p>
+          <p class="mt-1 font-bold text-slate-950 dark:text-white">{track.demand}</p>
+        </div>
+        <div class={`rounded-full bg-gradient-to-r ${track.color} px-3 py-1.5 text-center font-mono text-xs font-black text-slate-950`}>
+          {track.signal}
+        </div>
+        <div class="rounded-xl bg-white p-3 shadow-sm dark:bg-slate-950">
+          <p class="text-xs text-slate-500 dark:text-slate-400">拉动芯片</p>
+          <p class="mt-1 font-bold text-slate-950 dark:text-white">{track.chips}</p>
+        </div>
+        <div class="hidden text-2xl text-brand-500 lg:block">→</div>
+        <div class="rounded-xl border border-cyan-300/25 bg-cyan-50 p-3 dark:bg-cyan-950/25">
+          <p class="text-xs text-slate-500 dark:text-slate-400">行业结果</p>
+          <p class="mt-1 font-bold text-cyan-800 dark:text-cyan-100">{track.result}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="mt-4 rounded-2xl bg-slate-100 p-4 text-sm leading-relaxed text-slate-600 dark:bg-slate-900 dark:text-slate-400">
+    当前不是所有半导体都一起景气，而是 AI 拉满、汽车结构性增长、消费电子温和修复，所以板块整体强，但内部会高度分化。
+  </p>
+</section>

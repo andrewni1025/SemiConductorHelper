@@ -18,6 +18,7 @@ export default defineConfig({
   trailingSlash: 'ignore',
   integrations: [mdx(), sitemap()],
   vite: {
+    // @ts-expect-error Astro and @tailwindcss/vite currently resolve different Vite type copies; build/runtime are valid.
     plugins: [tailwindcss()],
   },
   markdown: {

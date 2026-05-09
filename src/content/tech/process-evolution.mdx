@@ -7,6 +7,8 @@ tags: [制程, FinFET, GAA, EUV, 摩尔定律, BSPDN]
 updated: 2026-05-10
 ---
 
+import ProcessRoadmap from '../../components/visuals/ProcessRoadmap.astro';
+
 ## 是什么
 
 「制程节点」（process node）是一个被滥用的名词。早年（90nm 之前）它真的等于晶体管栅极的物理长度，
@@ -38,17 +40,7 @@ updated: 2026-05-10
 
 来源：TSMC 2025/2026 Symposium、SemiAnalysis、AnandTech、TechPowerUp。
 
-```mermaid
-flowchart LR
-    A[28nm<br/>2011<br/>Planar HKMG] --> B[16/14nm<br/>2014-15<br/>FinFET]
-    B --> C[10nm<br/>2017<br/>FinFET v2]
-    C --> D[N7<br/>2018<br/>EUV 首发]
-    D --> E[N5<br/>2020<br/>EUV 全面化]
-    E --> F[N3<br/>2023<br/>FinFET 终结代]
-    F --> G[N2<br/>2025<br/>GAA Nanosheet]
-    G --> H[A16<br/>2026<br/>GAA + BSPDN]
-    H --> I[A14<br/>2027-28<br/>High-NA EUV]
-```
+<ProcessRoadmap />
 
 ## 关键技术 / 概念详解
 

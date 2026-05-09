@@ -9,6 +9,8 @@ order: 8
 updated: 2026-05-10
 ---
 
+import DownstreamDemandMap from '../../components/visuals/DownstreamDemandMap.astro';
+
 ## 这个环节是干什么的
 
 下游 = **谁最终把芯片买走、装进产品里卖给消费者或企业**。
@@ -53,15 +55,7 @@ updated: 2026-05-10
 
 ## 为什么下游决定一切
 
-```mermaid
-flowchart LR
-    D1[AI 数据中心 capex<br/>+50% YoY] --> M1[GPU + HBM + CoWoS<br/>极度供不应求]
-    D2[新能源车销量<br/>+25% YoY] --> M2[SiC + 车规 MCU<br/>结构性增长]
-    D3[手机出货<br/>+5% YoY] --> M3[AP SoC + 存储<br/>温和复苏]
-    M1 --> S[半导体行业景气度]
-    M2 --> S
-    M3 --> S
-```
+<DownstreamDemandMap />
 
 **当前的"分化景气"**：AI 拉满，新能源车增长，传统消费电子复苏中——所以**整体板块表现强势但内部高度分化**。
 

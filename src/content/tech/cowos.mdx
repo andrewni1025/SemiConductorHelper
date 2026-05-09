@@ -7,6 +7,8 @@ tags: [AI, 封装, CoWoS, HBM, 2.5D, 3D, Chiplet]
 updated: 2026-05-10
 ---
 
+import CowosStructure from '../../components/visuals/CowosStructure.astro';
+
 ## 是什么
 
 **CoWoS = Chip-on-Wafer-on-Substrate**，TSMC 的 2.5D 先进封装平台。
@@ -48,30 +50,7 @@ HBM 必须紧贴 GPU 才能跑出 TB/s 级别的带宽，普通 PCB 距离太远
 
 来源：TrendForce、SemiAnalysis、TechPowerUp"TSMC Roadmap for Wafer-Scale Packaging"（2025）。
 
-```mermaid
-flowchart TB
-    subgraph Pkg[CoWoS 封装结构]
-        direction TB
-        GPU[GPU / ASIC die<br/>N3/N4 logic]
-        H1[HBM stack 1]
-        H2[HBM stack 2]
-        H3[HBM stack 3]
-        H4[HBM stack 4]
-        INT[Silicon Interposer / RDL+LSI<br/>~10μm thick, TSV 互连]
-        SUB[Organic Substrate / PCB]
-
-        GPU --- H1
-        GPU --- H2
-        GPU --- H3
-        GPU --- H4
-        H1 --> INT
-        GPU --> INT
-        H2 --> INT
-        H3 --> INT
-        H4 --> INT
-        INT --> SUB
-    end
-```
+<CowosStructure />
 
 ## 历史与演进
 

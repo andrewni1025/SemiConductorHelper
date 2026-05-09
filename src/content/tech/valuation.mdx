@@ -7,6 +7,8 @@ tags: [估值, PE, EV/EBITDA, PB-ROE, DCF, 周期股]
 updated: 2026-05-10
 ---
 
+import ValuationDecisionMap from '../../components/visuals/ValuationDecisionMap.astro';
+
 ## 是什么
 
 半导体是 **资本密集 + 强周期 + 技术驱动** 的行业，这意味着 **单一估值方法在这里都会失灵**。
@@ -40,17 +42,7 @@ updated: 2026-05-10
 | **PB / PB-ROE** | 市净率，结合 ROE 看分位 | 强周期资产（存储、Foundry） | 轻资产公司 |
 | **DCF（折现现金流）** | 未来 FCF 折现 | 商业模式稳、capex 周期清晰的公司 | 周期波动极大的公司 |
 
-```mermaid
-flowchart TB
-    A[准备估值<br/>判断公司在哪个环节] --> B{资本密集度?}
-    B -- 高 --> C{现金流稳定?}
-    B -- 低 --> D[Fabless / EDA / IP]
-    C -- 是 --> E[Foundry / IDM / 设备]
-    C -- 弱 --> F[存储]
-    D --> D1[PE + PEG + ARR<br/>NVDA/AMD/Synopsys]
-    E --> E1[EV/EBITDA + 长协能见度<br/>+ DCF 辅助<br/>TSMC/ASML/AMAT]
-    F --> F1[PB-ROE + 现货价<br/>+ HBM 占比<br/>Micron/SK Hynix]
-```
+<ValuationDecisionMap />
 
 ## 谁在做 / 主要环节的估值锚
 

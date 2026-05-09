@@ -7,6 +7,8 @@ tags: [周期, 指标, 库存, CapEx, 周期罗盘]
 updated: 2026-05-10
 ---
 
+import CycleCompass from '../../components/visuals/CycleCompass.astro';
+
 ## 是什么
 
 半导体是经典的强周期行业。它的周期不是一个，而是 **三层叠加**：
@@ -48,8 +50,8 @@ updated: 2026-05-10
 
 | 指标 | 怎么看 | 当前读数（截至 2026-05） |
 |---|---|---|
-| **① 北美设备出货 Book-to-Bill（B2B）** | SEMI 月度发布，>1.0 = 后续景气；<0.95 = 预警 | 受 AI 投资拉动持续 >1.0；消费/成熟节点偏弱 |
-| **② 12 寸晶圆产能利用率（UTR）** | 行业整体 >85% = 紧张；<70% = 衰退 | 先进节点 ≈ 满产；成熟 65–75% 区间 |
+| **① 北美设备出货 Book-to-Bill（B2B）** | SEMI 月度发布，>1.0 = 后续景气；&lt;0.95 = 预警 | 受 AI 投资拉动持续 >1.0；消费/成熟节点偏弱 |
+| **② 12 寸晶圆产能利用率（UTR）** | 行业整体 >85% = 紧张；&lt;70% = 衰退 | 先进节点 ≈ 满产；成熟 65–75% 区间 |
 | **③ DRAM / NAND 现货价（DRAMeXchange）** | 周频，比合约价更敏感 | 2026 Q1 服务器 DRAM 现货 QoQ +50–90%（TrendForce） |
 | **④ 12 寸 wafer starts（WSTS、SEMI Manufacturing Monitor）** | 季频；增速由负转正是周期拐点 | 2025 全球 ~9 M 片/月，logic +8% / DRAM +12% YoY |
 
@@ -67,26 +69,7 @@ updated: 2026-05-10
 |---|---|---|
 | **⑧ CapEx 计划 + 人员变动** | TSMC/三大存储/Intel/SMIC capex 指引；招聘/裁员动态 | 2025 五大代工/存储合计 capex $123B（+24% YoY），2026 指引继续上修 |
 
-```mermaid
-flowchart LR
-    subgraph L[领先 6-12mo]
-        A1[设备 B2B]
-        A2[产能利用率]
-        A3[DRAM/NAND 现货价]
-        A4[Wafer Starts]
-    end
-    subgraph S[同步]
-        B1[营收 YoY]
-        B2[毛利与产品组合]
-        B3[渠道库存 DOI]
-    end
-    subgraph T[滞后 6-12mo]
-        C1[CapEx 计划]
-        C2[人员/招聘变动]
-    end
-    L --> S --> T
-    T -.过剩埋伏笔.-> L
-```
+<CycleCompass />
 
 > **关键洞察**：CapEx 是滞后指标——当所有人都在追加 capex 时，往往离顶部不远；
 > 反之大规模砍单 / 裁员时，往往离底部不远。这就是为什么 **2018 末砍单潮 + 2019 Q2 设备 B2B 跌破 0.7** 是 2020 牛市的前奏。

@@ -1,0 +1,42 @@
+---
+const usCards = ['EDA 三巨头', 'ASML 光刻生态', 'NVIDIA GPU', 'TSMC 先进制程依赖'];
+const chinaCards = ['全球最大消费市场', '稀土 / 镓锗原料', '成熟制程产能', '国产替代工程'];
+---
+
+<section class="not-prose my-8 overflow-hidden rounded-3xl border border-cyan-400/20 bg-white shadow-xl shadow-cyan-900/5 dark:bg-slate-950">
+  <div class="grid lg:grid-cols-[1fr_auto_1fr]">
+    <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-5 dark:from-blue-950/30 dark:to-cyan-950/20 sm:p-6">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-blue-700 dark:text-blue-300">US Leverage</p>
+      <h3 class="mt-2 text-2xl font-black text-slate-950 dark:text-white">美国筹码</h3>
+      <div class="mt-4 grid gap-3">
+        {usCards.map((card) => (
+          <div class="rounded-xl border border-blue-300/25 bg-white/75 p-3 font-semibold text-slate-800 dark:bg-slate-950/70 dark:text-slate-100">{card}</div>
+        ))}
+      </div>
+    </div>
+
+    <div class="flex items-center justify-center border-y border-cyan-300/20 bg-slate-950 px-5 py-6 text-center lg:border-x lg:border-y-0">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-cyan-300">Control Point</p>
+        <p class="mt-2 text-3xl font-black text-white">出口管制</p>
+        <p class="mt-2 text-cyan-200">vs.</p>
+        <p class="mt-2 text-3xl font-black text-white">国产替代</p>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-br from-emerald-50 to-amber-50 p-5 dark:from-emerald-950/25 dark:to-amber-950/15 sm:p-6">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-emerald-700 dark:text-emerald-300">China Leverage</p>
+      <h3 class="mt-2 text-2xl font-black text-slate-950 dark:text-white">中国筹码</h3>
+      <div class="mt-4 grid gap-3">
+        {chinaCards.map((card) => (
+          <div class="rounded-xl border border-emerald-300/25 bg-white/75 p-3 font-semibold text-slate-800 dark:bg-slate-950/70 dark:text-slate-100">{card}</div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-200 bg-rose-50 p-4 dark:border-slate-800 dark:bg-rose-950/20">
+    <p class="font-bold text-rose-800 dark:text-rose-200">最大尾部风险：台湾先进制程 + CoWoS 集中度极高。</p>
+    <p class="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">全球先进 logic 与 AI 先进封装高度依赖台湾产能，任何地缘冲击都会快速传导到 AI、云计算、汽车和消费电子。</p>
+  </div>
+</section>

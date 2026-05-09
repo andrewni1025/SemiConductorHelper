@@ -1,0 +1,57 @@
+---
+const steps = [
+  { no: '01', title: '设计', sub: 'Fabless', detail: '定义架构、IP、版图与工艺节点', tone: 'cyan' },
+  { no: '02', title: '流片', sub: 'Tape-out', detail: '把 GDSII 交给代工厂，制作光罩', tone: 'blue' },
+  { no: '03', title: '制造', sub: 'Foundry / IDM', detail: '几百道光刻、沉积、刻蚀与检测', tone: 'emerald' },
+  { no: '04', title: '封装测试', sub: 'OSAT / CoWoS', detail: '切割、互连、封装、通电测试', tone: 'amber' },
+  { no: '05', title: '出货', sub: 'System', detail: '进入服务器、汽车、手机和工业设备', tone: 'rose' },
+];
+
+const fabLoop = ['清洗', '涂胶', '光刻', '显影 / 蚀刻', '沉积 / 注入', 'CMP 抛光'];
+---
+
+<section class="not-prose my-8 overflow-hidden rounded-3xl border border-cyan-400/20 bg-white shadow-xl shadow-cyan-900/5 dark:bg-slate-950">
+  <div class="border-b border-slate-200 bg-gradient-to-r from-cyan-50 via-white to-emerald-50 p-5 dark:border-slate-800 dark:from-cyan-950/35 dark:via-slate-950 dark:to-emerald-950/25">
+    <p class="font-mono text-xs uppercase tracking-[0.22em] text-brand-600 dark:text-brand-300">Chip Making Flow</p>
+    <h3 class="mt-2 text-2xl font-black text-slate-950 dark:text-white">一颗芯片从图纸到产品的 5 个闸门</h3>
+  </div>
+
+  <div class="p-5 sm:p-6">
+    <div class="grid gap-3 lg:grid-cols-5">
+      {steps.map((step, index) => (
+        <div class="relative rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/70">
+          {index < steps.length - 1 && (
+            <div class="absolute -right-4 top-10 z-10 hidden h-8 w-8 items-center justify-center rounded-full bg-slate-950 text-cyan-200 dark:bg-cyan-300 dark:text-slate-950 lg:flex">→</div>
+          )}
+          <p class="font-mono text-xs text-slate-500 dark:text-slate-400">{step.no}</p>
+          <h4 class="mt-2 text-xl font-black text-slate-950 dark:text-white">{step.title}</h4>
+          <p class="mt-1 font-mono text-xs uppercase tracking-wider text-brand-600 dark:text-brand-300">{step.sub}</p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{step.detail}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-5 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
+      <div class="rounded-2xl border border-amber-300/30 bg-amber-50/70 p-4 dark:bg-amber-950/15">
+        <p class="text-sm font-bold text-amber-800 dark:text-amber-200">最贵、最难、最容易被卡的是第 3 步</p>
+        <p class="mt-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+          晶圆制造不是一条直线，而是同一组工序在不同金属层、介质层、晶体管层上反复循环。先进节点一次流片的成本与良率风险都极高。
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-cyan-300/25 bg-slate-50 p-4 dark:border-cyan-300/15 dark:bg-slate-900/70">
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {fabLoop.map((item, index) => (
+            <div class="rounded-xl border border-white bg-white p-3 text-center shadow-sm dark:border-slate-800 dark:bg-slate-950">
+              <p class="font-mono text-xs text-brand-600 dark:text-brand-300">{String(index + 1).padStart(2, '0')}</p>
+              <p class="mt-1 font-semibold text-slate-900 dark:text-white">{item}</p>
+            </div>
+          ))}
+        </div>
+        <div class="mt-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 px-4 py-3 text-center font-bold text-slate-950">
+          重复 40–80+ 次，直到所有电路层完成
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

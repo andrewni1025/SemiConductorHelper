@@ -6,17 +6,13 @@ tags: [入门, 制造]
 updated: 2026-05-10
 ---
 
+import ChipMakingFlow from '../../components/visuals/ChipMakingFlow.astro';
+
 > 一颗芯片从「设计」到能装进服务器，要经历 5 个大步骤、几百道工序、6-12 周的工厂时间。本文用最少的术语把流程串起来。
 
 ## 整体流程
 
-```mermaid
-flowchart LR
-    A[1 设计<br/>Fabless] --> B[2 流片<br/>Tape-out]
-    B --> C[3 制造<br/>Foundry / IDM]
-    C --> D[4 封装测试<br/>OSAT]
-    D --> E[5 出货<br/>装入终端产品]
-```
+<ChipMakingFlow />
 
 ## 1. 设计（Design）
 
@@ -35,19 +31,7 @@ flowchart LR
 - **谁做**：Foundry（TSMC、SMIC）或 IDM（Intel、Samsung）
 - **做什么**：把光罩上的图案"印"到硅片上，反复几百次
 
-简化版工序：
-
-```mermaid
-flowchart TD
-    A[硅片清洗] --> B[涂光刻胶]
-    B --> C[光刻 / Lithography<br/>ASML 光刻机]
-    C --> D[显影 / 蚀刻]
-    D --> E[薄膜沉积 / 离子注入]
-    E --> F[抛光 CMP]
-    F --> G{完成所有层?}
-    G -- 否 --> B
-    G -- 是 --> H[晶圆完工]
-```
+简化版工序可以理解为：**清洗 → 涂光刻胶 → 光刻 → 显影 / 蚀刻 → 沉积 / 注入 → CMP 抛光**，然后在不同电路层上反复循环。
 
 - **核心设备**：ASML 的 **EUV 光刻机**（一台 1.5 亿美元起，全球只有它能造）
 - **核心指标**：**良率（Yield）**——每片晶圆有多少颗芯片是好的；先进制程初期良率可能只有 50%

@@ -6,6 +6,9 @@ tags: [入门, 战略]
 updated: 2026-05-10
 ---
 
+import EconomicImpactMap from '../../components/visuals/EconomicImpactMap.astro';
+import GeoChipMap from '../../components/visuals/GeoChipMap.astro';
+
 > 这篇文章不讲技术，也不讲投资，只回答一个问题：**为什么我们这一代人几乎每个人都该花点时间理解这个行业？**
 
 ## 1. 它在你看不见的地方驱动一切
@@ -14,17 +17,7 @@ updated: 2026-05-10
 
 2024 年全球半导体市场约 **6300 亿美元**（来源：SIA / WSTS），但**它撬动的下游产业 ≈ 25 万亿美元**（手机 + 汽车 + 数据中心 + 消费电子等终端价值之和）。
 
-```mermaid
-flowchart LR
-    A[半导体<br/>$6300 亿] --> B[手机/PC/服务器<br/>~$2 万亿]
-    A --> C[汽车 / 新能源<br/>~$3 万亿]
-    A --> D[云计算 / AI 服务<br/>~$5000 亿快速增长]
-    A --> E[家电 / IoT / 工业<br/>~$3 万亿]
-    B --> F[全球数字经济<br/>~$25 万亿+]
-    C --> F
-    D --> F
-    E --> F
-```
+<EconomicImpactMap />
 
 > **类比**：半导体之于现代经济，像电力之于 19 世纪末——它本身的产值不大，但没有它整个文明就停摆。
 
@@ -73,22 +66,7 @@ flowchart LR
 
 主要博弈点：
 
-```mermaid
-flowchart LR
-    subgraph U[美国筹码]
-        E1[EDA 三巨头]
-        E2[ASML 光刻机]
-        E3[NVIDIA GPU]
-        E4[TSMC 先进制程<br/>实际依赖]
-    end
-    subgraph C[中国筹码]
-        Z1[全球最大半导体<br/>消费市场]
-        Z2[稀土 / 镓锗<br/>原料]
-        Z3[成熟制程产能<br/>全球占比上升]
-        Z4[国产替代加速<br/>设备/材料]
-    end
-    U <-->|出口管制 vs. 反制| C
-```
+<GeoChipMap />
 
 **台海** 是最大的尾部风险：全球 90%+ 的先进 logic + 100% 的 CoWoS 在台湾——一旦发生冲突，整个全球数字经济会立刻断链。
 
