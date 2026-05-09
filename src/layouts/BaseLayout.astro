@@ -7,8 +7,9 @@ interface Props {
   description?: string;
 }
 
-const { title = '半导体行业认知手册', description = '上下游 · 公司 · 技术路线 · 投资周期' } = Astro.props;
-const fullTitle = title === '半导体行业认知手册' ? title : `${title} · 半导体行业认知手册`;
+const siteName = '半导体深度地图';
+const { title = siteName, description = '上下游 · 公司 · 技术路线 · 投资周期' } = Astro.props;
+const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
 ---
 
 <!doctype html>
@@ -34,7 +35,7 @@ const fullTitle = title === '半导体行业认知手册' ? title : `${title} ·
       <slot />
     </main>
     <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-sm text-slate-500">
-      <p>半导体行业认知手册 · 内容仅供学习参考，不构成投资建议</p>
+      <p>半导体深度地图 · 内容仅供学习参考，不构成投资建议</p>
       <p class="mt-1">由 Astro + Copilot CLI 协作维护</p>
     </footer>
 

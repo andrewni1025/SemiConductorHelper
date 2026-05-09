@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "半导体行业认知手册 — 上下游、公司、技术、政策与投资周期",
+  "description": "半导体深度地图 — 上下游、公司、技术、政策与投资周期",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
