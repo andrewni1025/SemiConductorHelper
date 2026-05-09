@@ -8,6 +8,7 @@ interface Props {
 }
 
 const siteName = '半导体深度地图';
+const author = 'Andrew';
 const { title = siteName, description = '上下游 · 公司 · 技术路线 · 投资周期' } = Astro.props;
 const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
 ---
@@ -19,6 +20,7 @@ const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="author" content={author} />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <title>{fullTitle}</title>
     <script is:inline>
@@ -35,8 +37,8 @@ const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
       <slot />
     </main>
     <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-sm text-slate-500">
-      <p>半导体深度地图 · 内容仅供学习参考，不构成投资建议</p>
-      <p class="mt-1">由 Astro + Copilot CLI 协作维护</p>
+      <p>半导体深度地图 · 作者 Andrew · 内容仅供学习参考，不构成投资建议</p>
+      <p class="mt-1">Curated by Andrew · Built with Astro + Copilot CLI</p>
     </footer>
 
   </body>

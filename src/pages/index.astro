@@ -35,6 +35,7 @@ const techs = (await getCollection('tech')).sort((a, b) => (a.data.order ?? 0) -
 const weekly = (await getCollection('weekly')).sort(
   (a, b) => +new Date(b.data.weekStart) - +new Date(a.data.weekStart),
 );
+const latestWeekly = weekly[0];
 
 const formatPercent = (value: number) => `${value >= 0 ? '+' : ''}${value.toFixed(1)}%`;
 const topMovers = snapshot.items
@@ -53,6 +54,13 @@ const topMovers = snapshot.items
 
 const headlineMovers = topMovers.slice(0, 3);
 
+const homeStats = [
+  { label: '覆盖公司', value: companies.length, suffix: '家', note: '全球核心标的' },
+  { label: '产业链环节', value: segments.length, suffix: '个', note: '上游 → 下游' },
+  { label: '最新快照', value: snapshot.date, suffix: '', note: '股价 / 估值' },
+  { label: '作者', value: 'Andrew', suffix: '', note: '个人研究地图' },
+];
+
 const sections = [
   {
     title: '入门地图',
@@ -60,6 +68,9 @@ const sections = [
     href: `${base}intro/`,
     count: intros.length,
     color: 'from-brand-500 to-brand-700',
+    accent: 'cyan',
+    kicker: 'Start Here',
+    cta: '从零开始',
   },
   {
     title: '产业链词典',
@@ -67,6 +78,9 @@ const sections = [
     href: `${base}segments/`,
     count: segments.length,
     color: 'from-emerald-500 to-emerald-700',
+    accent: 'emerald',
+    kicker: 'Supply Chain',
+    cta: '看上下游',
   },
   {
     title: '公司档案库',
@@ -74,6 +88,9 @@ const sections = [
     href: `${base}companies/`,
     count: companies.length,
     color: 'from-amber-500 to-amber-700',
+    accent: 'amber',
+    kicker: 'Company Radar',
+    cta: '研究公司',
   },
   {
     title: '技术 & 周期',
@@ -81,6 +98,9 @@ const sections = [
     href: `${base}tech/`,
     count: techs.length,
     color: 'from-rose-500 to-rose-700',
+    accent: 'rose',
+    kicker: 'Tech Routes',
+    cta: '理解技术',
   },
   {
     title: '时事周报',
@@ -88,6 +108,9 @@ const sections = [
     href: `${base}weekly/`,
     count: weekly.length,
     color: 'from-indigo-500 to-indigo-700',
+    accent: 'indigo',
+    kicker: 'Weekly Brief',
+    cta: '追踪时事',
   },
 ];
 
@@ -97,39 +120,74 @@ const rallyPaths = [
     title: '先看谁在把需求变收入',
     desc: 'NVIDIA、AMD、ASIC、云厂商 CAPEX，是这轮行情的第一条主线。',
     href: `${base}segments/fabless/`,
+    accent: 'cyan',
+    signal: '01',
   },
   {
     eyebrow: 'HBM / CoWoS',
     title: '瓶颈在哪里，溢价就在哪里',
     desc: '先进封装、HBM、台积电产能，是 AI 芯片能否交付的关键约束。',
     href: `${base}tech/cowos/`,
+    accent: 'emerald',
+    signal: '02',
   },
   {
     eyebrow: '设备 / 国产替代',
     title: '卖铲子的人也在重估',
     desc: '光刻、刻蚀、薄膜、量测与国产设备，决定制造能力的天花板。',
     href: `${base}segments/equipment/`,
+    accent: 'amber',
+    signal: '03',
   },
   {
     eyebrow: '周期 / 估值',
     title: '暴涨之后更要看位置',
     desc: '用库存、资本开支、盈利弹性和估值框架判断行情处在什么阶段。',
     href: `${base}tech/cycle/`,
+    accent: 'rose',
+    signal: '04',
+  },
+];
+
+const workflow = [
+  {
+    step: '01',
+    title: '先建立全局地图',
+    desc: '从入门地图理解一颗芯片怎么来、为什么重要。',
+    href: `${base}intro/`,
+  },
+  {
+    step: '02',
+    title: '再拆产业链位置',
+    desc: '判断谁卖铲子、谁制造、谁设计、谁被下游需求拉动。',
+    href: `${base}segments/`,
+  },
+  {
+    step: '03',
+    title: '最后落到公司与周期',
+    desc: '把护城河、估值、财报、政策和技术路线放到同一张图里看。',
+    href: latestWeekly ? `${base}weekly/${latestWeekly.id}/` : `${base}weekly/`,
   },
 ];
 ---
 
 <BaseLayout>
-  <section class="relative overflow-hidden bg-[#eefcff] dark:bg-[#02040a]">
+  <section class="home-hero relative overflow-hidden bg-[#eefcff] dark:bg-[#02040a]">
     <div class="absolute inset-0 hero-glow pointer-events-none"></div>
     <div class="absolute inset-0 hero-grid pointer-events-none"></div>
     <div class="absolute inset-0 hero-noise pointer-events-none"></div>
+    <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent dark:via-cyan-300/30"></div>
 
     <div class="relative max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-24 lg:py-28 grid lg:grid-cols-[1.03fr_0.97fr] gap-12 items-center">
       <div>
-        <div class="inline-flex items-center gap-2 text-xs font-mono tracking-[0.2em] text-brand-600 dark:text-brand-300 uppercase">
-          <span class="pulse-dot"></span>
-          <span>AI Chips Rally · Semiconductor Field Guide</span>
+        <div class="home-kicker-row">
+          <div class="inline-flex items-center gap-2 text-xs font-mono tracking-[0.2em] text-brand-600 dark:text-brand-300 uppercase">
+            <span class="pulse-dot"></span>
+            <span>AI Chips Rally · Semiconductor Field Guide</span>
+          </div>
+          <div class="home-author-pill">
+            Curated by <strong>Andrew</strong>
+          </div>
         </div>
 
         <h1 class="mt-5 text-4xl sm:text-6xl lg:text-7xl font-black leading-[1.02] tracking-tight">
@@ -182,18 +240,19 @@ const rallyPaths = [
           </a>
         </div>
 
-        <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-slate-500 dark:text-slate-500 font-mono">
-          <span>18 家关键公司</span>
-          <span class="text-brand-400/60">/</span>
-          <span>8 个产业链环节</span>
-          <span class="text-brand-400/60">/</span>
-          <span>6 篇技术路线</span>
-          <span class="text-brand-400/60">/</span>
-          <span>研究用，不构成投资建议</span>
+        <div class="home-stat-strip">
+          {homeStats.map((stat) => (
+            <div class="home-stat">
+              <span>{stat.label}</span>
+              <strong>{stat.value}{stat.suffix}</strong>
+              <em>{stat.note}</em>
+            </div>
+          ))}
         </div>
       </div>
 
       <aside class="market-surge-card">
+        <div class="market-corner-chip" aria-hidden="true">AI</div>
         <div class="flex items-start justify-between gap-4">
           <div>
             <p class="text-xs font-mono tracking-[0.2em] text-brand-700 dark:text-brand-300 uppercase">
@@ -267,49 +326,66 @@ const rallyPaths = [
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
-    <div class="grid md:grid-cols-4 gap-3">
+  <section class="home-band max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
+    <div class="home-section-head">
+      <p>MARKET THREADS</p>
+      <h2>先抓住这波行情的四条主线</h2>
+    </div>
+    <div class="home-rally-grid">
       {rallyPaths.map((path) => (
-        <a href={path.href} class="rally-card group !no-underline">
-          <p class="text-xs font-mono tracking-[0.16em] text-brand-600 dark:text-brand-300 uppercase">
-            {path.eyebrow}
-          </p>
-          <h3 class="mt-3 text-base font-bold text-slate-950 dark:text-white group-hover:text-brand-700 dark:group-hover:text-brand-200">
-            {path.title}
-          </h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{path.desc}</p>
+        <a href={path.href} class={`home-rally-card home-rally-${path.accent} group !no-underline`}>
+          <span class="home-card-index">{path.signal}</span>
+          <p class="home-card-eyebrow">{path.eyebrow}</p>
+          <h3>{path.title}</h3>
+          <p>{path.desc}</p>
+          <span class="home-card-arrow">进入主线 →</span>
         </a>
       ))}
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
-    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">从暴涨主线拆到长期认知</h2>
-    <div class="grid sm:grid-cols-2 gap-4">
+  <section class="home-feature-section max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
+    <div class="home-section-head">
+      <p>RESEARCH MODULES</p>
+      <h2>从暴涨主线拆到长期认知</h2>
+      <span>不是追热点，而是把公司、技术、周期、政策放进同一张地图里。</span>
+    </div>
+    <div class="home-feature-grid">
       {sections.map((s) => (
-        <a href={s.href} class="card block !no-underline group">
-          <div class={`inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br ${s.color} text-white text-lg font-bold mb-3`}>
-            {s.count || '·'}
+        <a href={s.href} class={`home-feature-card home-feature-${s.accent} group !no-underline`}>
+          <div class="home-feature-orb">
+            <span>{s.count || '·'}</span>
           </div>
-          <h3 class="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-300">
-            {s.title}
-          </h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{s.desc}</p>
+          <div>
+            <p class="home-card-eyebrow">{s.kicker}</p>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </div>
+          <span class="home-card-arrow">{s.cta} →</span>
         </a>
       ))}
     </div>
   </section>
 
-  <section class="max-w-5xl mx-auto px-5 sm:px-8 pb-16">
-    <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
-      <h3 class="font-semibold text-slate-900 dark:text-white">怎么使用这本手册</h3>
-      <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
-        <li>· <strong>初识半导体</strong>：从「入门地图」开始，了解一颗芯片是怎么造出来的</li>
-        <li>· <strong>看懂产业链</strong>：「产业链词典」介绍 8 个核心环节的作用、护城河、周期特征</li>
-        <li>· <strong>研究公司</strong>：「公司档案」覆盖 18 家关键公司的业务、技术与最新动态</li>
-        <li>· <strong>理解趋势</strong>：「技术 &amp; 周期」讲制程/封装/HBM/SiC 等未来方向，以及如何识别周期位置</li>
-        <li>· <strong>跟踪时事</strong>：「时事周报」按需更新，记录政策、财报、行业关键事件</li>
-      </ul>
+  <section class="home-workflow-section max-w-6xl mx-auto px-5 sm:px-8 pb-16">
+    <div class="home-workflow-card">
+      <div class="home-workflow-copy">
+        <p class="home-card-eyebrow">HOW TO USE</p>
+        <h2>给自己和朋友看的半导体研究路径</h2>
+        <p>
+          这不是实时交易面板，而是一张由 Andrew 维护的行业认知地图：
+          先搭框架，再看产业位置，最后落到公司和周期。
+        </p>
+      </div>
+      <div class="home-workflow-grid">
+        {workflow.map((item) => (
+          <a href={item.href} class="home-workflow-step !no-underline">
+            <span>{item.step}</span>
+            <strong>{item.title}</strong>
+            <em>{item.desc}</em>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>
