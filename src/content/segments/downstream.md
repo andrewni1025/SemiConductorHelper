@@ -1,0 +1,98 @@
+---
+title: 下游应用
+summary: 半导体的最终归宿——AI 数据中心、汽车、手机、工业、消费电子
+representativeCompanies: [Apple, Tesla, BYD, Microsoft, Meta, Google]
+moat: 终端品牌 + 软件生态 + 用户数据闭环
+cyclicality: 各下游周期差异巨大，整体决定半导体景气度
+keyTech: [AI 数据中心, 智能驾驶, 5G AI 手机, SiC, GaN, IoT]
+order: 8
+updated: 2026-05-10
+---
+
+## 这个环节是干什么的
+
+下游 = **谁最终把芯片买走、装进产品里卖给消费者或企业**。
+
+半导体行业看似上游高大上，但**所有上游的景气度归根结底由下游需求决定**：手机不卖、车不卖、AI 服务器不卖，再先进的 fab 也是亏损。
+
+2024–2026 年最显眼的现象就是：**AI 数据中心一家独大**，传统消费电子温和复苏，汽车 / 工业平稳。
+
+## 五大下游赛道（按 2026 重要性排序）
+
+### 1. AI / 数据中心 — 当前最强主线
+
+- **谁在买**：Microsoft、Google、Amazon、Meta、Oracle、字节、阿里、腾讯
+- **2026 hyperscaler AI capex 估 ~$6300 亿**，其中 ~75% 投向 AI 硬件（GPU、HBM、网络、电源），来源：本仓库 [2026-W19 周报](../../weekly/2026-W19/)
+- **Q4 2025 单季 Top 5 hyperscaler capex** $130.7B，多数同比 +50%+，Oracle 因 OpenAI 项目同比 +200%
+- **驱动**：训练（pre-training + post-training）+ 推理（reasoning models）双轮，且 **推理需求增速正在反超训练**
+
+### 2. 汽车 / 新能源 — 长周期增长
+
+- **谁在买**：Tesla、BYD、蔚来、小鹏、丰田、大众、福特
+- **每辆电动车芯片价值量** ≈ 传统燃油车的 3–5 倍（MCU + 功率器件 + 雷达 + CIS + 智驾 SoC）
+- **关键品类**：SiC（碳化硅，电控）、GaN（氮化镓，OBC）、车规 MCU、智驾 SoC（NVIDIA Drive、地平线征程、华为 ADS）
+- **当前状态**：传统车规 MCU 库存仍在去化，**SiC / 智驾 SoC 仍在加速渗透**
+
+### 3. 手机 / 消费电子 — 温和复苏
+
+- **谁在买**：Apple、三星、小米、OPPO、vivo、华为、传音
+- **2024–2025 年全球智能手机出货回到 +5% 左右**，AI 手机（端侧大模型）是 2026 主要催化
+- **关键品类**：AP SoC（A19 / 骁龙 8 Gen5 / 麒麟 9020）、5G 基带、CIS、射频前端、存储
+
+### 4. 工业 / 通信 / 国防 — 稳定但增速不高
+
+- **谁在买**：西门子、ABB、思科、爱立信、华为、Lockheed Martin
+- **关键品类**：FPGA、DSP、模拟、电源管理、卫星通信（Starlink 等）
+- **特点**：单价高、寿命长、认证严格——典型的"小池子高毛利"
+
+### 5. 消费 IoT / PC / VR — 弱周期赛道
+
+- **PC**：Apple Silicon + AI PC（Snapdragon X、Lunar Lake、Strix Halo）正在重塑
+- **VR / AR**：Vision Pro、Quest、AI 眼镜——出货量小但带新需求
+- **IoT**：碎片化，靠出货量摊薄成本
+
+## 为什么下游决定一切
+
+```mermaid
+flowchart LR
+    D1[AI 数据中心 capex<br/>+50% YoY] --> M1[GPU + HBM + CoWoS<br/>极度供不应求]
+    D2[新能源车销量<br/>+25% YoY] --> M2[SiC + 车规 MCU<br/>结构性增长]
+    D3[手机出货<br/>+5% YoY] --> M3[AP SoC + 存储<br/>温和复苏]
+    M1 --> S[半导体行业景气度]
+    M2 --> S
+    M3 --> S
+```
+
+**当前的"分化景气"**：AI 拉满，新能源车增长，传统消费电子复苏中——所以**整体板块表现强势但内部高度分化**。
+
+## 关键数据点（截至 2026-05）
+
+| 指标 | 数值 | 来源 |
+|---|---|---|
+| 全球半导体市场 2024 | ~$6300 亿 | SIA / WSTS |
+| 2026 hyperscaler AI capex | ~$6300 亿 | 本仓库 [2026-W19 周报](../../weekly/2026-W19/) |
+| Top 5 hyperscaler Q4 2025 capex | $130.7B（+50%+ YoY） | 同上 |
+| NVIDIA FY2026 数据中心收入 | $193.7B（+68% YoY） | 同上 |
+| AI GPU 交期 | 36–52 周 | 同上 |
+| 全球 EV 渗透率（2025） | ~25% | IEA |
+
+## 投资视角
+
+- **看什么**：
+  - hyperscaler 季度 capex 指引（Microsoft / Google / Meta / Amazon 财报最重要）
+  - 全球智能手机出货数据（IDC、Canalys 月度）
+  - 全球新能源车销量（中国 + 美国 + 欧洲）
+  - 端侧 AI（手机、PC）渗透率拐点
+- **风险**：
+  1. **AI capex 拐点**：模型规模收益递减、ROIC 不达预期 → hyperscaler 削减
+  2. **消费电子需求疲软**：宏观下行 / 通胀压制
+  3. **车规库存去化**：MCU、CIS 在 2024–2025 已经历一轮库存调整
+  4. **地缘政治**：出口管制、关税直接传导到下游订单
+
+## 推荐阅读
+
+- [Fabless 无晶圆设计](../fabless/)（NVIDIA / AMD 是 AI 数据中心最大供给）
+- [存储 (Memory)](../memory/)（HBM 是 AI 服务器单价最高的存储）
+- [先进封装](../advanced-packaging/)（CoWoS 是 AI GPU 的瓶颈）
+- [上下游全景图](../../intro/03-supply-chain-overview/)
+- [2026-W19 周报](../../weekly/2026-W19/)

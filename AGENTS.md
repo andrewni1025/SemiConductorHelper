@@ -135,6 +135,7 @@ sources:                           # 来源链接（务必保留！）
 
 ### Step 2：（可选）跑数据快照
 ```bash
+# 首次运行需要安装 yfinance：pip install yfinance
 python scripts/snapshot_prices.py
 ```
 - 输出：`data/snapshots/YYYY-MM-DD.json`

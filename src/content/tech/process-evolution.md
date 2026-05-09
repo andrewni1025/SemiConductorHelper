@@ -1,0 +1,150 @@
+---
+title: 制程演进：从 28nm 到 A16
+description: 摩尔定律的 30 年与未来——FinFET、GAA、背面供电的接力
+category: 制程
+order: 1
+tags: [制程, FinFET, GAA, EUV, 摩尔定律, BSPDN]
+updated: 2026-05-10
+---
+
+## 是什么
+
+「制程节点」（process node）是一个被滥用的名词。早年（90nm 之前）它真的等于晶体管栅极的物理长度，
+但从 22/14nm 之后，**节点名称已经基本是营销编号**——它代表"代际"，而不是某个尺寸。
+真正在变的是 **晶体管结构**（Planar → FinFET → GAA）、**布线层数**（10 层 → 20 层）、
+**光刻方式**（DUV 浸没多重曝光 → EUV → High-NA EUV）、以及最近的 **背面供电**（BSPDN）。
+
+可以把过去 15 年的制程演进，理解成 **三场接力**：
+
+1. **2011–2018**：Planar → FinFET（让漏电止住）
+2. **2019–2024**：DUV → EUV（让图形画得出来）
+3. **2025–2030**：FinFET → GAA + BSPDN（让性能再榨一波）
+
+## 历史与演进
+
+下表是头部代工厂的关键节点，年份指 **HVM（高量产）启动**，不同厂商命名不可直接比较。
+
+| 节点 | HVM 年份 | 晶体管结构 | 光刻 | 关键创新 | 代表产品 |
+|---|---|---|---|---|---|
+| 28nm | 2011 | Planar HKMG | DUV 浸没 | 高 K 金属栅，至今仍是成熟节点的"现金牛" | iPhone A5/A6、矿机、车规 MCU |
+| 16/14nm | 2014–2015 | FinFET（首次） | DUV 多重曝光 | 鳍式 3D 沟道，漏电下降 50%+ | Apple A9、iPhone 6s |
+| 10nm | 2017 | FinFET | DUV | 第二代 FinFET，Intel 因此踩坑 3 年 | A10X、Snapdragon 835 |
+| **N7 / 7nm** | **2018** | FinFET | **DUV → EUV（N7+）** | EUV 首次商用，TSMC 拉开领跑 | A12/A13、Ryzen 3000 |
+| N5 / 5nm | 2020 | FinFET | EUV 14 层 | 密度 +80% vs N7 | A14、M1、H100 |
+| N3 / 3nm | 2022–2023 | FinFET（最后一代） | EUV 25+ 层 | 密度 +60%，但成本暴涨 | A17 Pro、M3、Blackwell B200 |
+| **N2 / 2nm** | **2025 H2** | **GAA Nanosheet（首次）** | EUV | 首次换架构，性能 +10–15% | Apple A20（预期）、AMD MI400 |
+| **A16** | **2026 H2** | GAA + **BSPDN「Super Power Rail」** | EUV | 首次背面供电，密度再 +10% | 下一代 Nvidia/AMD 加速器 |
+| A14 | 2027–2028（roadmap） | GAA + BSPDN + High-NA EUV | High-NA EUV 引入 | 首次 0.55NA 光刻 | 待定 |
+
+来源：TSMC 2025/2026 Symposium、SemiAnalysis、AnandTech、TechPowerUp。
+
+```mermaid
+flowchart LR
+    A[28nm<br/>2011<br/>Planar HKMG] --> B[16/14nm<br/>2014-15<br/>FinFET]
+    B --> C[10nm<br/>2017<br/>FinFET v2]
+    C --> D[N7<br/>2018<br/>EUV 首发]
+    D --> E[N5<br/>2020<br/>EUV 全面化]
+    E --> F[N3<br/>2023<br/>FinFET 终结代]
+    F --> G[N2<br/>2025<br/>GAA Nanosheet]
+    G --> H[A16<br/>2026<br/>GAA + BSPDN]
+    H --> I[A14<br/>2027-28<br/>High-NA EUV]
+```
+
+## 关键技术 / 概念详解
+
+### FinFET：让漏电止住的"鳍"
+
+90nm 之后，传统 Planar 晶体管的"沟道"太薄太宽，**栅极已经控制不住电流**——漏电飙升、功耗失控。
+FinFET 把沟道立起来变成一片"鳍"（Fin），栅极三面包住沟道，控制力大幅提升。
+TSMC、Samsung 在 14/16nm 切换 FinFET，Intel 早一步在 22nm（2012）就上了——这是 Intel 制程的最后高光。
+
+### EUV：N7 是真正的转折点
+
+5nm 以下的图形已经无法用 193nm 波长的 DUV 光直接画出来，必须靠 **多重曝光**（一层图形拆成 4–6 次曝光），
+良率与成本都被推到极限。**EUV（13.5nm 波长）** 一台机器顶 4–6 道 DUV 工序，这是 ASML 的 NXE：3400 系列。
+
+- TSMC N7+ / N6 是 EUV 的商用首发（2019）
+- N5 把 EUV 从"少数关键层"扩展到 14 层
+- N3 用到 25 层以上
+
+EUV 决定了 **谁还能跑前沿**：没有 EUV 就跑不到 7nm 以下。这是为什么美国把 EUV 作为对中国出口管制的核心工具——
+ASML 至今未向中国大陆交付过任何一台 EUV。SMIC 的 N+2（号称 7nm）是用 DUV 多重曝光硬撑出来的，良率与成本都不经济。
+
+### GAA Nanosheet：FinFET 的接班人
+
+到了 3nm 末期，FinFET 的鳍已经做不到更窄了——再窄就立不住。**GAA（Gate-All-Around）** 把"鳍"换成横放的"纳米片"
+（Nanosheet），栅极四面包住沟道，控制力再升一档，并且片宽可以自由调整（4–60nm），方便针对不同电路类型优化。
+
+- Samsung 在 3GAE（2022）抢先用 GAA，但良率拖累
+- TSMC N2（2025 H2）才正式切换 GAA，但被认为更稳
+- Intel 18A（2025）也用 GAA + BSPDN
+
+### BSPDN：背面供电——A16 的杀招
+
+传统芯片的电源线和信号线都从晶体管"上面"走，越往先进节点走，**电源走线和信号走线互相挤**，
+IR drop（电压降）越来越严重。**BSPDN（Backside Power Delivery Network）** 把电源走线挪到芯片背面，
+通过 nano-TSV 从背面给晶体管供电——信号层独占正面，电源层独占背面。
+
+- 好处：**密度 +10%、性能 +8–10%、功耗 −10%**（TSMC 估算）
+- 代价：背面工艺极复杂（要先做正面、键合载片、磨薄、再做背面），良率与成本都更高
+- TSMC A16（2026 H2 HVM）首发 BSPDN，称为 **Super Power Rail**
+- Intel 18A（2025）用的是 PowerVia，是同类技术
+- Samsung SF2 / SF1.4 路线略晚
+
+### DTCO：节点名字之外的"暗节点"
+
+**DTCO（Design-Technology Co-Optimization）** 指把电路库（standard cell）、SRAM、布线规则与制程工艺一起优化，
+不靠缩小晶体管也能挤出 5–10% 密度。比如 N3E 相对 N3 主要不是缩小，而是 DTCO 重做的版本。
+这也是为什么"节点名义尺寸"和"实际尺寸"早就脱钩——**真正在涨价的是良率、光罩层数与 EDA 复杂度**。
+
+## 谁在做 / 主要玩家
+
+| 公司 | 当前最先进量产节点（2026 H1） | 下一节点 | 备注 |
+|---|---|---|---|
+| **TSMC** | N3E / N3P（FinFET） | **N2（GAA, 2025 H2）→ A16（BSPDN, 2026 H2）** | 唯一同时跑 GAA 与 BSPDN，AI 链最大代工方 |
+| **Samsung Foundry** | SF3（GAA, 2022 已试） | SF2（2026）→ SF1.4（2027） | GAA 抢跑但良率追不上 TSMC |
+| **Intel Foundry** | Intel 4 / Intel 3 | **Intel 18A（GAA + PowerVia, 2025）→ 14A** | 18A 是 Intel "Five Nodes in Four Years" 的关键 |
+| **SMIC（中芯国际）** | N+1（号称 14nm） / N+2（号称 7nm，DUV 多重曝光） | 受 EUV 出口管制，停在 DUV 极限 | 用于华为 Ascend / Kirin |
+| **Rapidus（日本）** | 试产 2nm（GAA，IBM 授权） | 计划 2027 量产 | 日本国家队，押注 AI/汽车 |
+
+来源：各公司 2025/2026 投资者日、SemiWiki、Reuters。
+
+## 当前状态与瓶颈（截至 2026-05）
+
+- **N3 仍是 AI 主力**：Nvidia Blackwell（B100/B200）、AMD MI300/MI325 都用 TSMC N4P/N3，N2/A16 真正放量要 2027
+- **N2 正在风险试产 → HVM**：苹果 A20 系列预计首发，紧接着 AMD MI400、Nvidia 下一代 Rubin 跟进
+- **A16 排在 2026 H2 HVM**：但客户量产产品要到 2027 年中才陆续亮相
+- **High-NA EUV（ASML EXE:5000 系列）** 已经出货给 Intel、TSMC、Samsung 试用，但 Imec/SemiAnalysis 普遍认为
+  HVM 要等到 A14（2027–2028）
+- **成本曲线**：N5 单片成本约 $17K，N3 约 $20K+，N2 估计 $25K+；**单晶体管成本已经停止下降近 10 年**
+
+> 所以摩尔定律没死，但它从"两年缩一半"变成了"两年贵一截，能效继续涨"。
+
+## 投资 / 行业视角
+
+**先进制程的钱，最后大部分流到三个地方**：
+
+1. **设备**：ASML（EUV/High-NA 独家）、Applied Materials（沉积/刻蚀）、Lam Research（刻蚀）、KLA（量测）、Tokyo Electron（涂胶/显影）
+2. **代工**：TSMC（N2/A16 客户独占）、Samsung Foundry（追赶）、Intel Foundry（押注 18A 重返第一梯队）
+3. **材料/EDA**：Synopsys/Cadence（先进节点设计工具）、Shin-Etsu/SUMCO（大尺寸硅片）、JSR/TOK（EUV 光刻胶）
+
+**判断逻辑**（不构成投资建议）：
+
+- 节点切换的"红利"通常 **先到设备厂**（订单提前 12–18 个月）→ 再到代工厂（产能爬坡）→ 再到 fabless（产品上市）
+- 一旦摩尔定律放缓，**封装（CoWoS、3D SoIC）和 Chiplet** 的相对价值上升——这是 [CoWoS 与先进封装](./cowos) 那篇要讲的故事
+- 中国制程被 EUV 卡住的逻辑短期不会反转，国产替代主战场在 **DUV + 设备 + 材料** 而非 EUV
+
+**主要风险**：
+
+- AI capex 放缓 → 先进节点订单波动放大
+- High-NA EUV 量产推迟（光源功率、光罩、抗蚀剂任何一环卡住都会延期 1 年）
+- 地缘政治升级（[2026-W19 周报](../../weekly/2026-w19) 中提到的 MATCH Act 会进一步收紧设备维护服务）
+
+## 推荐阅读
+
+- [HBM 高带宽存储](./hbm)——制程之外的另一条 AI 主线
+- [CoWoS 与先进封装](./cowos)——为什么"封装"成了真正的瓶颈
+- [TSMC 公司档案](../../companies/tsmc)
+- [晶圆代工 (Foundry) 产业链](../../segments/foundry)
+- [半导体设备产业链](../../segments/equipment)
+- 外部参考：TSMC 2025/2026 Technology Symposium、SemiAnalysis "The Path to 2nm"、ASML 投资者日
