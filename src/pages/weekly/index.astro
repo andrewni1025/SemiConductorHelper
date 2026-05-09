@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const items = (await getCollection('weekly')).sort(
+  (a, b) => +new Date(b.data.weekStart) - +new Date(a.data.weekStart),
+);
+const base = import.meta.env.BASE_URL;
+
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<BaseLayout title="时事周报" description="政策、财报、AI 链条、关键事件追踪">
+  <section class="max-w-4xl mx-auto px-5 sm:px-8 py-10">
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-white">时事周报</h1>
+    <p class="mt-3 text-slate-600 dark:text-slate-400">
+      按需更新（开 Copilot CLI 说一声「更新本周时事」即可）。覆盖政策、财报季、AI 链条、关键技术发布。
+    </p>
+
+    {items.length === 0 ? (
+      <div class="mt-8 p-6 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 text-slate-500">
+        还没有周报。详见 <code>AGENTS.md</code> 中「每周更新流程」一节。
+      </div>
+    ) : (
+      <ul class="mt-8 space-y-3">
+        {items.map((item) => (
+          <li>
+            <a href={`${base}weekly/${item.id}/`} class="card block !no-underline group">
+              <div class="flex items-start justify-between gap-3">
+                <h2 class="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-300">
+                  {item.data.title}
+                </h2>
+                <span class="text-xs text-slate-500 font-mono whitespace-nowrap">
+                  {fmt(item.data.weekStart)} — {fmt(item.data.weekEnd)}
+                </span>
+              </div>
+              {item.data.highlights && item.data.highlights.length > 0 && (
+                <ul class="mt-3 space-y-1 text-sm text-slate-600 dark:text-slate-400">
+                  {item.data.highlights.slice(0, 3).map((h) => (
+                    <li>· {h}</li>
+                  ))}
+                </ul>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

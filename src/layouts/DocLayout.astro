@@ -1,0 +1,43 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  updated?: Date;
+  tags?: string[];
+  breadcrumb?: { label: string; href?: string }[];
+}
+
+const { title, description, updated, tags, breadcrumb = [] } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-8 py-10">
+    {breadcrumb.length > 0 && (
+      <nav class="text-sm text-slate-500 mb-4">
+        {breadcrumb.map((b, i) => (
+          <span>
+            {b.href ? <a href={b.href}>{b.label}</a> : <span>{b.label}</span>}
+            {i < breadcrumb.length - 1 && <span class="mx-1.5">/</span>}
+          </span>
+        ))}
+      </nav>
+    )}
+
+    <header class="mb-6">
+      <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">{title}</h1>
+      {description && <p class="mt-3 text-lg text-slate-600 dark:text-slate-400">{description}</p>}
+      <div class="mt-3 flex flex-wrap items-center gap-2 text-sm text-slate-500">
+        {updated && (
+          <span>更新于 {updated.toISOString().slice(0, 10)}</span>
+        )}
+        {tags && tags.map((t) => <span class="tag">{t}</span>)}
+      </div>
+    </header>
+
+    <div class="prose-doc">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>

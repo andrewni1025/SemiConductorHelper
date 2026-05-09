@@ -1,0 +1,79 @@
+---
+import DocLayout from '../../layouts/DocLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('companies');
+  return items.map((item) => ({ params: { slug: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+const base = import.meta.env.BASE_URL;
+const d = item.data;
+---
+
+<DocLayout
+  title={d.name}
+  description={d.nameEn}
+  updated={d.updated}
+  tags={d.tags}
+  breadcrumb={[
+    { label: '首页', href: base },
+    { label: '公司档案', href: `${base}companies/` },
+    { label: d.name },
+  ]}
+>
+  <div class="not-prose mb-6 p-5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+      <span class="tag">{d.segment}</span>
+      {d.country && <span class="tag">{d.country}</span>}
+      {d.ticker && (
+        <span class="text-xs font-mono px-2 py-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+          {d.ticker}
+        </span>
+      )}
+      {d.website && (
+        <a href={d.website} target="_blank" rel="noopener" class="text-xs text-brand-600 hover:text-brand-700 ml-auto">
+          官网 ↗
+        </a>
+      )}
+    </div>
+    <dl class="grid sm:grid-cols-2 gap-4 text-sm">
+      {d.moat && (
+        <div class="sm:col-span-2">
+          <dt class="text-slate-500">护城河</dt>
+          <dd class="text-slate-800 dark:text-slate-200 mt-0.5">{d.moat}</dd>
+        </div>
+      )}
+      {d.keyPeople && d.keyPeople.length > 0 && (
+        <div>
+          <dt class="text-slate-500">关键人物</dt>
+          <dd class="text-slate-800 dark:text-slate-200 mt-0.5">{d.keyPeople.join('、')}</dd>
+        </div>
+      )}
+      {d.keyTech && d.keyTech.length > 0 && (
+        <div>
+          <dt class="text-slate-500">关键技术</dt>
+          <dd class="mt-1 flex flex-wrap gap-1.5">
+            {d.keyTech.map((t) => <span class="tag">{t}</span>)}
+          </dd>
+        </div>
+      )}
+      {d.customers && d.customers.length > 0 && (
+        <div>
+          <dt class="text-slate-500">主要客户</dt>
+          <dd class="text-slate-800 dark:text-slate-200 mt-0.5">{d.customers.join('、')}</dd>
+        </div>
+      )}
+      {d.competitors && d.competitors.length > 0 && (
+        <div>
+          <dt class="text-slate-500">主要竞争对手</dt>
+          <dd class="text-slate-800 dark:text-slate-200 mt-0.5">{d.competitors.join('、')}</dd>
+        </div>
+      )}
+    </dl>
+  </div>
+
+  <Content />
+</DocLayout>

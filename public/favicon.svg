@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect x="6" y="6" width="52" height="52" rx="8" fill="#145880"/>
+  <g fill="none" stroke="#7ab4d4" stroke-width="2.5" stroke-linecap="round">
+    <line x1="20" y1="14" x2="20" y2="22"/>
+    <line x1="32" y1="14" x2="32" y2="22"/>
+    <line x1="44" y1="14" x2="44" y2="22"/>
+    <line x1="20" y1="42" x2="20" y2="50"/>
+    <line x1="32" y1="42" x2="32" y2="50"/>
+    <line x1="44" y1="42" x2="44" y2="50"/>
+    <line x1="14" y1="20" x2="22" y2="20"/>
+    <line x1="14" y1="32" x2="22" y2="32"/>
+    <line x1="14" y1="44" x2="22" y2="44"/>
+    <line x1="42" y1="20" x2="50" y2="20"/>
+    <line x1="42" y1="32" x2="50" y2="32"/>
+    <line x1="42" y1="44" x2="50" y2="44"/>
+  </g>
+  <rect x="22" y="22" width="20" height="20" rx="2" fill="#3d8db8" stroke="#b3d6e9" stroke-width="1.5"/>
+  <text x="32" y="36" font-family="ui-monospace, monospace" font-size="9" font-weight="700" fill="#0c3650" text-anchor="middle">SC</text>
+</svg>

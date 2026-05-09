@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const items = (await getCollection('tech')).sort(
+  (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0),
+);
+const base = import.meta.env.BASE_URL;
+
+const categories = new Map<string, typeof items>();
+for (const it of items) {
+  const cat = it.data.category;
+  if (!categories.has(cat)) categories.set(cat, []);
+  categories.get(cat)!.push(it);
+}
+---
+
+<BaseLayout title="技术 & 周期" description="制程、封装、HBM、SiC/GaN、半导体周期与估值方法">
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 py-10">
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-white">技术 &amp; 周期</h1>
+    <p class="mt-3 text-slate-600 dark:text-slate-400 max-w-2xl">
+      理解未来趋势：制程演进、先进封装、互联、功率器件，以及如何识别半导体周期位置。
+    </p>
+
+    {items.length === 0 ? (
+      <div class="mt-8 p-6 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 text-slate-500">
+        还没有内容。在 <code>src/content/tech/</code> 下添加 .md / .mdx 文件即可。
+      </div>
+    ) : (
+      <div class="mt-8 space-y-8">
+        {Array.from(categories.entries()).map(([cat, list]) => (
+          <div>
+            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-3">{cat}</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {list.map((item) => (
+                <a href={`${base}tech/${item.id}/`} class="card block !no-underline group">
+                  <h3 class="font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-300">
+                    {item.data.title}
+                  </h3>
+                  {item.data.description && (
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                      {item.data.description}
+                    </p>
+                  )}
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

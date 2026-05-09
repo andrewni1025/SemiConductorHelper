@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* dark 用 class 策略，配合 NavBar 里的 ThemeToggle */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─────────────────────────────────────────────
+   主题：稳重 + 科技感（半导体行业氛围）
+   主色：石墨蓝；强调：青蓝；正文：深灰
+   ───────────────────────────────────────────── */
+@theme {
+  --color-brand-50:  #f0f7fb;
+  --color-brand-100: #d9ecf5;
+  --color-brand-200: #b3d6e9;
+  --color-brand-300: #7ab4d4;
+  --color-brand-400: #3d8db8;
+  --color-brand-500: #1f6e9c;
+  --color-brand-600: #145880;
+  --color-brand-700: #0f4666;
+  --color-brand-800: #0c3650;
+  --color-brand-900: #08263a;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* 基础排版 */
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  @apply bg-white text-slate-800 dark:bg-slate-950 dark:text-slate-100;
+}
+
+/* 链接（不在 prose 里时） */
+a {
+  @apply text-brand-600 hover:text-brand-700 dark:text-brand-300 dark:hover:text-brand-200;
+}
+
+/* 内容区排版 */
+.prose-doc {
+  @apply max-w-none text-slate-800 dark:text-slate-100 leading-relaxed;
+}
+.prose-doc h1 { @apply text-3xl font-bold mt-0 mb-4; }
+.prose-doc h2 { @apply text-2xl font-semibold mt-10 mb-3 border-b border-slate-200 dark:border-slate-800 pb-2; }
+.prose-doc h3 { @apply text-xl font-semibold mt-6 mb-2; }
+.prose-doc h4 { @apply text-base font-semibold mt-5 mb-2; }
+.prose-doc p  { @apply my-3; }
+.prose-doc ul { @apply list-disc pl-6 my-3 space-y-1; }
+.prose-doc ol { @apply list-decimal pl-6 my-3 space-y-1; }
+.prose-doc blockquote {
+  @apply border-l-4 border-brand-400 bg-brand-50 dark:bg-slate-900 dark:border-brand-600
+         pl-4 py-2 my-4 text-slate-700 dark:text-slate-300 italic;
+}
+.prose-doc code:not(pre code) {
+  @apply bg-slate-100 dark:bg-slate-800 text-brand-700 dark:text-brand-300
+         px-1.5 py-0.5 rounded text-[0.9em];
+}
+.prose-doc pre {
+  @apply rounded-lg p-4 my-4 text-sm overflow-x-auto;
+}
+.prose-doc table {
+  @apply w-full border-collapse my-4 text-sm;
+}
+.prose-doc th, .prose-doc td {
+  @apply border border-slate-200 dark:border-slate-700 px-3 py-2 text-left;
+}
+.prose-doc th {
+  @apply bg-slate-50 dark:bg-slate-800 font-semibold;
+}
+.prose-doc a {
+  @apply underline underline-offset-2 decoration-brand-400/60 hover:decoration-brand-600;
+}
+
+/* 公司卡 / 环节卡公用 */
+.card {
+  @apply rounded-xl border border-slate-200 dark:border-slate-800
+         bg-white dark:bg-slate-900 p-5 shadow-sm
+         hover:shadow-md hover:border-brand-300 dark:hover:border-brand-700
+         transition;
+}
+
+.tag {
+  @apply inline-block text-xs px-2 py-0.5 rounded-full
+         bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-200
+         border border-brand-200/60 dark:border-brand-800;
+}

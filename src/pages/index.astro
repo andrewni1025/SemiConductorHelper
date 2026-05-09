@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL;
+
+const intros = (await getCollection('intro')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const segments = (await getCollection('segments')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const companies = await getCollection('companies');
+const techs = (await getCollection('tech')).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+const weekly = (await getCollection('weekly')).sort(
+  (a, b) => +new Date(b.data.weekStart) - +new Date(a.data.weekStart),
+);
+
+const sections = [
+  {
+    title: '入门地图',
+    desc: '5 分钟看懂半导体是什么、上下游怎么连',
+    href: `${base}intro/`,
+    count: intros.length,
+    color: 'from-brand-500 to-brand-700',
+  },
+  {
+    title: '产业链词典',
+    desc: 'EDA / Fabless / Foundry / 设备 / 材料 / 存储 / 封装 / 下游',
+    href: `${base}segments/`,
+    count: segments.length,
+    color: 'from-emerald-500 to-emerald-700',
+  },
+  {
+    title: '公司档案库',
+    desc: '18 家全球关键公司：业务、护城河、关键人物、最新动态',
+    href: `${base}companies/`,
+    count: companies.length,
+    color: 'from-amber-500 to-amber-700',
+  },
+  {
+    title: '技术 & 周期',
+    desc: '制程、先进封装、HBM、SiC/GaN、半导体周期与估值方法',
+    href: `${base}tech/`,
+    count: techs.length,
+    color: 'from-rose-500 to-rose-700',
+  },
+  {
+    title: '时事周报',
+    desc: '政策、财报、AI 链条、关键事件追踪（按需更新）',
+    href: `${base}weekly/`,
+    count: weekly.length,
+    color: 'from-indigo-500 to-indigo-700',
+  },
+];
+---
+
+<BaseLayout>
+  <section class="bg-gradient-to-br from-brand-50 via-white to-brand-100 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 py-16 sm:py-24">
+      <p class="text-sm text-brand-600 dark:text-brand-300 font-medium tracking-wide uppercase">
+        Semiconductor Helper
+      </p>
+      <h1 class="mt-3 text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
+        半导体行业认知手册
+      </h1>
+      <p class="mt-5 text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+        从「什么是芯片」到「投资周期怎么看」——
+        一份给自己和朋友的半导体入门 + 进阶指南。
+        覆盖上下游、关键公司、技术路线、政策与时事追踪。
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href={`${base}intro/`}
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700
+                 text-white font-medium !no-underline transition"
+        >
+          从入门地图开始 →
+        </a>
+        <a
+          href={`${base}weekly/`}
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700
+                 text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 !no-underline transition"
+        >
+          查看时事周报
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 py-12 sm:py-16">
+    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">五大板块</h2>
+    <div class="grid sm:grid-cols-2 gap-4">
+      {sections.map((s) => (
+        <a href={s.href} class="card block !no-underline group">
+          <div class={`inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br ${s.color} text-white text-lg font-bold mb-3`}>
+            {s.count || '·'}
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-300">
+            {s.title}
+          </h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{s.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 pb-16">
+    <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 p-6">
+      <h3 class="font-semibold text-slate-900 dark:text-white">怎么使用这本手册</h3>
+      <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+        <li>· <strong>初识半导体</strong>：从「入门地图」开始，了解一颗芯片是怎么造出来的</li>
+        <li>· <strong>看懂产业链</strong>：「产业链词典」介绍 8 个核心环节的作用、护城河、周期特征</li>
+        <li>· <strong>研究公司</strong>：「公司档案」覆盖 18 家关键公司的业务、技术与最新动态</li>
+        <li>· <strong>理解趋势</strong>：「技术 &amp; 周期」讲制程/封装/HBM/SiC 等未来方向，以及如何识别周期位置</li>
+        <li>· <strong>跟踪时事</strong>：「时事周报」按需更新，记录政策、财报、行业关键事件</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

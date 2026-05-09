@@ -1,0 +1,27 @@
+---
+import DocLayout from '../../layouts/DocLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('tech');
+  return items.map((item) => ({ params: { slug: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+const base = import.meta.env.BASE_URL;
+---
+
+<DocLayout
+  title={item.data.title}
+  description={item.data.description}
+  updated={item.data.updated}
+  tags={item.data.tags}
+  breadcrumb={[
+    { label: '首页', href: base },
+    { label: '技术 & 周期', href: `${base}tech/` },
+    { label: item.data.title },
+  ]}
+>
+  <Content />
+</DocLayout>

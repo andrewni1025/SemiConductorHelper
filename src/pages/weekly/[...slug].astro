@@ -1,0 +1,47 @@
+---
+import DocLayout from '../../layouts/DocLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('weekly');
+  return items.map((item) => ({ params: { slug: item.id }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+const base = import.meta.env.BASE_URL;
+const d = item.data;
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<DocLayout
+  title={d.title}
+  description={`${fmt(d.weekStart)} — ${fmt(d.weekEnd)}`}
+  breadcrumb={[
+    { label: '首页', href: base },
+    { label: '时事周报', href: `${base}weekly/` },
+    { label: d.title },
+  ]}
+>
+  {d.highlights && d.highlights.length > 0 && (
+    <div class="not-prose mb-6 p-4 rounded-lg border-l-4 border-brand-500 bg-brand-50 dark:bg-slate-900">
+      <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">本周要点</p>
+      <ul class="space-y-1 text-sm text-slate-700 dark:text-slate-300">
+        {d.highlights.map((h) => <li>· {h}</li>)}
+      </ul>
+    </div>
+  )}
+
+  <Content />
+
+  {d.sources && d.sources.length > 0 && (
+    <section class="mt-10 pt-6 border-t border-slate-200 dark:border-slate-800">
+      <h2>来源</h2>
+      <ul>
+        {d.sources.map((s) => (
+          <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+</DocLayout>

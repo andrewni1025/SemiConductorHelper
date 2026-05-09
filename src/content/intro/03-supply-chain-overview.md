@@ -1,0 +1,98 @@
+---
+title: 上下游全景图
+description: 一张图看懂半导体从设计到终端的完整链条
+order: 3
+tags: [入门, 产业链]
+updated: 2026-05-10
+---
+
+## 一张图看懂
+
+下面这张图是 **半导体产业链的最简版本**，从上游到下游，从原材料到最终产品。
+
+```mermaid
+flowchart LR
+    subgraph U[上游 · 工具与原料]
+        EDA[EDA / IP<br/>Synopsys · Cadence]
+        EQ[设备<br/>ASML · AMAT · LAM · KLA · TEL]
+        MAT[材料<br/>Shin-Etsu · SUMCO · JSR · TOK]
+    end
+
+    subgraph M[中游 · 设计与制造]
+        FAB[Fabless 设计<br/>Nvidia · AMD · Qualcomm · MediaTek]
+        IDM[IDM<br/>Intel · Samsung · Micron]
+        FOUNDRY[Foundry 代工<br/>TSMC · Samsung · SMIC]
+        MEM[存储<br/>SK Hynix · Samsung · Micron]
+        OSAT[封装测试<br/>ASE · Amkor · 长电]
+    end
+
+    subgraph D[下游 · 终端应用]
+        AI[AI / 数据中心<br/>云厂商 · 互联网]
+        AUTO[汽车 / 新能源]
+        PHONE[手机 / 消费电子]
+        IND[工业 / 通信 / 国防]
+    end
+
+    EDA --> FAB
+    EDA --> IDM
+    EQ --> FOUNDRY
+    EQ --> IDM
+    EQ --> MEM
+    MAT --> FOUNDRY
+    MAT --> IDM
+    MAT --> MEM
+
+    FAB --> FOUNDRY
+    FOUNDRY --> OSAT
+    IDM --> OSAT
+    MEM --> OSAT
+
+    OSAT --> AI
+    OSAT --> AUTO
+    OSAT --> PHONE
+    OSAT --> IND
+```
+
+## 三层结构
+
+### 1. 上游 — 工具与原料
+
+谁在卖"造芯片的工具和原料"。
+
+| 子环节 | 干什么 | 卡脖子程度 |
+|---|---|---|
+| EDA / IP | 芯片设计软件、IP 核（ARM 等） | ★★★★★ |
+| 设备 | 光刻、刻蚀、薄膜、检测、量测 | ★★★★★（尤其 ASML 光刻） |
+| 材料 | 硅片、光刻胶、电子气体、靶材、化学品 | ★★★★ |
+
+### 2. 中游 — 设计与制造
+
+谁在"造芯片"。
+
+| 子环节 | 干什么 | 代表 |
+|---|---|---|
+| Fabless | 只设计、不制造，把版图交给代工厂 | Nvidia、AMD、Qualcomm |
+| Foundry | 只制造、不设计，给所有 fabless 客户代工 | TSMC、SMIC |
+| IDM | 又设计又制造（一体化） | Intel、Samsung、Micron |
+| 存储 | DRAM / NAND / HBM 专门厂 | SK Hynix、Micron、Samsung |
+| 封测 (OSAT) | 把晶圆切割、封装、测试成最终芯片 | ASE、Amkor、长电 |
+
+### 3. 下游 — 终端应用
+
+谁在"用芯片"，他们的需求决定整个产业链的景气度。
+
+- **AI / 数据中心**：当前最强主线（Nvidia、云厂商 CapEx）
+- **汽车 / 新能源**：SiC、功率器件、MCU、CIS
+- **手机 / 消费电子**：周期复苏中
+- **工业 / 通信 / 国防**：稳定但增速不高
+
+## 这张图最重要的 3 个洞察
+
+1. **越上游越垄断**：EDA、光刻几乎是寡头垄断；越下游越分散
+2. **AI 链条特别突出**：上游设备/材料 → TSMC → CoWoS → HBM → Nvidia → 云厂商，每一环都有龙头
+3. **国产替代主战场在上游**：中国 fabless 已经百花齐放，但 EDA、光刻、关键材料、先进制程仍被卡
+
+## 接下来读什么
+
+- 每个环节单独深入 → 「[产业链词典](../../segments/)」
+- 想看具体公司 → 「[公司档案库](../../companies/)」

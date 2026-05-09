@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SegmentCard from '../../components/SegmentCard.astro';
+import { getCollection } from 'astro:content';
+
+const items = (await getCollection('segments')).sort(
+  (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0),
+);
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="产业链词典" description="EDA / Fabless / Foundry / 设备 / 材料 / 存储 / 封装 / 下游">
+  <section class="max-w-5xl mx-auto px-5 sm:px-8 py-10">
+    <h1 class="text-3xl font-bold text-slate-900 dark:text-white">产业链词典</h1>
+    <p class="mt-3 text-slate-600 dark:text-slate-400 max-w-2xl">
+      半导体的 8 个核心环节：每个环节做什么、护城河来自哪里、有哪些龙头公司、属于成长还是周期。
+    </p>
+
+    {items.length === 0 ? (
+      <div class="mt-8 p-6 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 text-slate-500">
+        还没有内容。在 <code>src/content/segments/</code> 下添加 .md / .mdx 文件即可。
+      </div>
+    ) : (
+      <div class="mt-8 grid sm:grid-cols-2 gap-4">
+        {items.map((item) => (
+          <SegmentCard
+            title={item.data.title}
+            summary={item.data.summary}
+            representativeCompanies={item.data.representativeCompanies}
+            href={`${base}segments/${item.id}/`}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

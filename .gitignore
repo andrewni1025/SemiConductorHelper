@@ -1,0 +1,34 @@
+# build output
+dist/
+.output/
+
+# astro internal
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+.env.local
+
+# editor
+.vscode/
+.idea/
+.DS_Store
+
+# python (snapshot scripts)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 数据快照（可选保留 — 默认忽略大文件，重要快照可手动 commit）
+# data/snapshots/*.json
