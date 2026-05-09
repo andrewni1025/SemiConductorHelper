@@ -2,40 +2,63 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CompanyCard from '../../components/CompanyCard.astro';
 import { getCollection } from 'astro:content';
+import { stageOf, CHAIN_STAGES, type ChainStage } from '../../lib/chain';
 
 const items = await getCollection('companies');
 const base = import.meta.env.BASE_URL;
 
-const grouped = new Map<string, typeof items>();
+type Item = (typeof items)[number];
+type Bucket = { stage: ChainStage; list: Item[] };
+
+// 按产业链环节分组
+const buckets = new Map<string, Bucket>();
 for (const it of items) {
-  const seg = it.data.segment;
-  if (!grouped.has(seg)) grouped.set(seg, []);
-  grouped.get(seg)!.push(it);
+  const stage = stageOf(it.data.segment);
+  if (!buckets.has(stage.key)) buckets.set(stage.key, { stage, list: [] });
+  buckets.get(stage.key)!.list.push(it);
 }
-const groups = Array.from(grouped.entries()).sort((a, b) => a[0].localeCompare(b[0], 'zh'));
+// 按 CHAIN_STAGES 预定义顺序排
+const ordered: Bucket[] = CHAIN_STAGES
+  .map((s) => buckets.get(s.key))
+  .filter((b): b is Bucket => !!b);
+
+const totalStages = ordered.length;
 ---
 
-<BaseLayout title="公司档案库" description="18 家全球关键半导体公司">
-  <section class="max-w-5xl mx-auto px-5 sm:px-8 py-10">
-    <h1 class="text-3xl font-bold text-slate-900 dark:text-white">公司档案库</h1>
-    <p class="mt-3 text-slate-600 dark:text-slate-400 max-w-2xl">
-      覆盖海外算力、海外制造、海外存储、海外设备、中国制造/设备/EDA — 共 18 家关键公司的结构化档案。
-    </p>
+<BaseLayout title="公司档案库" description="按产业链上下游分组的 18 家关键半导体公司">
+  <section class="companies-page">
+    <header class="companies-header">
+      <span class="companies-eyebrow">
+        <span class="pulse-dot"></span>
+        公司档案 · 上游 → 中游 → 下游
+      </span>
+      <h1 class="companies-title">公司档案库</h1>
+      <p class="companies-subtitle">
+        {items.length} 家关键公司，按 <strong>产业链环节</strong> 排列：从设计工具、设备、晶圆代工，到存储与 AI 算力 fabless。每张卡显示最新收盘价、Forward PE 和 52w 位置。
+      </p>
+    </header>
 
     {items.length === 0 ? (
-      <div class="mt-8 p-6 rounded-lg border border-dashed border-slate-300 dark:border-slate-700 text-slate-500">
+      <div class="empty-block">
         还没有内容。在 <code>src/content/companies/</code> 下添加 .md / .mdx 文件即可。
       </div>
     ) : (
-      <div class="mt-8 space-y-10">
-        {groups.map(([segment, list]) => (
-          <div>
-            <h2 class="text-xl font-semibold text-slate-900 dark:text-white mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
-              {segment} <span class="text-sm text-slate-500 font-normal">· {list.length} 家</span>
-            </h2>
+      <div class="companies-stages">
+        {ordered.map((b, i) => (
+          <section class={`chain-stage chain-stage-${b.stage.accent}`}>
+            <header class="chain-stage-head">
+              <div class="chain-stage-index">{String(i + 1).padStart(2, '0')} / {String(totalStages).padStart(2, '0')}</div>
+              <div class="chain-stage-title-row">
+                <h2 class="chain-stage-label">{b.stage.label}</h2>
+                <span class="chain-stage-count">{b.list.length} 家</span>
+              </div>
+              <p class="chain-stage-position">{b.stage.position}</p>
+              <p class="chain-stage-blurb">{b.stage.blurb}</p>
+            </header>
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {list.map((c) => (
+              {b.list.map((c) => (
                 <CompanyCard
+                  slug={c.id}
                   name={c.data.name}
                   nameEn={c.data.nameEn}
                   ticker={c.data.ticker}
@@ -46,7 +69,7 @@ const groups = Array.from(grouped.entries()).sort((a, b) => a[0].localeCompare(b
                 />
               ))}
             </div>
-          </div>
+          </section>
         ))}
       </div>
     )}

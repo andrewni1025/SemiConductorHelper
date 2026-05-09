@@ -8,7 +8,7 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { Content } = await render(item);
+const { Content, headings } = await render(item);
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -17,6 +17,10 @@ const base = import.meta.env.BASE_URL;
   description={item.data.description}
   updated={item.data.updated}
   tags={item.data.tags}
+  eyebrow="入门地图"
+  accent="cyan"
+  headings={headings}
+  body={item.body ?? ''}
   breadcrumb={[
     { label: '首页', href: base },
     { label: '入门地图', href: `${base}intro/` },

@@ -8,15 +8,20 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { Content } = await render(item);
+const { Content, headings } = await render(item);
 const base = import.meta.env.BASE_URL;
 const d = item.data;
-const fmt = (d: Date) => d.toISOString().slice(0, 10);
+const fmt = (date: Date) => date.toISOString().slice(0, 10);
 ---
 
 <DocLayout
   title={d.title}
-  description={`${fmt(d.weekStart)} — ${fmt(d.weekEnd)}`}
+  description={`覆盖政策 / 财报 / AI 链条 / 技术发布`}
+  eyebrow="时事周报"
+  accent="indigo"
+  badge={`${fmt(d.weekStart)} → ${fmt(d.weekEnd)}`}
+  headings={headings}
+  body={item.body ?? ''}
   breadcrumb={[
     { label: '首页', href: base },
     { label: '时事周报', href: `${base}weekly/` },
@@ -24,12 +29,17 @@ const fmt = (d: Date) => d.toISOString().slice(0, 10);
   ]}
 >
   {d.highlights && d.highlights.length > 0 && (
-    <div class="not-prose mb-6 p-4 rounded-lg border-l-4 border-brand-500 bg-brand-50 dark:bg-slate-900">
-      <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">本周要点</p>
-      <ul class="space-y-1 text-sm text-slate-700 dark:text-slate-300">
-        {d.highlights.map((h) => <li>· {h}</li>)}
-      </ul>
-    </div>
+    <aside class="callout callout-insight not-prose my-6">
+      <header class="callout-header">
+        <span class="callout-icon" aria-hidden="true">🎯</span>
+        <span class="callout-title">本周要点</span>
+      </header>
+      <div class="callout-body">
+        <ul>
+          {d.highlights.map((h) => <li>{h}</li>)}
+        </ul>
+      </div>
+    </aside>
   )}
 
   <Content />

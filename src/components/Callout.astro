@@ -1,0 +1,59 @@
+---
+/**
+ * 文章内通用 Callout 组件（MDX 中使用）
+ * 5 种语义：insight（核心结论）/ risk（风险）/ invest（投资视角）/ tldr（一句话理解）/ note（备注）
+ *
+ * 用法（MDX）：
+ *   import Callout from '../../components/Callout.astro';
+ *   <Callout type="insight">这是一段结论。</Callout>
+ */
+type CalloutType = 'insight' | 'risk' | 'invest' | 'tldr' | 'note';
+
+interface Props {
+  type?: CalloutType;
+  title?: string;
+}
+
+const { type = 'note', title } = Astro.props as Props;
+
+const cfg: Record<CalloutType, { defaultTitle: string; icon: string; cls: string }> = {
+  insight: {
+    defaultTitle: '核心结论',
+    icon: '🎯',
+    cls: 'callout-insight',
+  },
+  risk: {
+    defaultTitle: '风险提醒',
+    icon: '⚠️',
+    cls: 'callout-risk',
+  },
+  invest: {
+    defaultTitle: '投资视角',
+    icon: '📈',
+    cls: 'callout-invest',
+  },
+  tldr: {
+    defaultTitle: '一句话理解',
+    icon: '💡',
+    cls: 'callout-tldr',
+  },
+  note: {
+    defaultTitle: '备注',
+    icon: '📝',
+    cls: 'callout-note',
+  },
+};
+
+const c = cfg[type];
+const finalTitle = title ?? c.defaultTitle;
+---
+
+<aside class={`callout ${c.cls} my-6`}>
+  <header class="callout-header">
+    <span class="callout-icon" aria-hidden="true">{c.icon}</span>
+    <span class="callout-title">{finalTitle}</span>
+  </header>
+  <div class="callout-body">
+    <slot />
+  </div>
+</aside>

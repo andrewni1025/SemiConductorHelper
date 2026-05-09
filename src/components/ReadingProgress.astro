@@ -1,0 +1,24 @@
+---
+/**
+ * 顶部阅读进度条 — 仅在文章页 (DocLayout) 出现
+ */
+---
+
+<div id="reading-progress" class="reading-progress" aria-hidden="true">
+  <div id="reading-progress-bar" class="reading-progress-bar"></div>
+</div>
+
+<script>
+  const bar = document.getElementById('reading-progress-bar') as HTMLElement | null;
+  if (bar) {
+    const update = () => {
+      const root = document.documentElement;
+      const max = root.scrollHeight - root.clientHeight;
+      const ratio = max > 0 ? root.scrollTop / max : 0;
+      bar.style.transform = `scaleX(${ratio})`;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+</script>

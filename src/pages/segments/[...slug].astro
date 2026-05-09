@@ -8,7 +8,7 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
-const { Content } = await render(item);
+const { Content, headings } = await render(item);
 const base = import.meta.env.BASE_URL;
 ---
 
@@ -16,6 +16,10 @@ const base = import.meta.env.BASE_URL;
   title={item.data.title}
   description={item.data.summary}
   updated={item.data.updated}
+  eyebrow="产业链词典"
+  accent="emerald"
+  headings={headings}
+  body={item.body ?? ''}
   breadcrumb={[
     { label: '首页', href: base },
     { label: '产业链', href: `${base}segments/` },
@@ -23,38 +27,34 @@ const base = import.meta.env.BASE_URL;
   ]}
 >
   {(item.data.moat || item.data.cyclicality || item.data.keyTech) && (
-    <div class="not-prose mb-6 p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
-      <dl class="grid sm:grid-cols-2 gap-3 text-sm">
-        {item.data.moat && (
-          <div>
-            <dt class="text-slate-500">护城河</dt>
-            <dd class="text-slate-800 dark:text-slate-200 mt-0.5">{item.data.moat}</dd>
+    <section class="not-prose mb-8 grid md:grid-cols-2 gap-3">
+      {item.data.moat && (
+        <div class="company-meta-card">
+          <p class="company-meta-label">护城河</p>
+          <p class="company-meta-text">{item.data.moat}</p>
+        </div>
+      )}
+      {item.data.cyclicality && (
+        <div class="company-meta-card">
+          <p class="company-meta-label">周期特征</p>
+          <p class="company-meta-text">{item.data.cyclicality}</p>
+        </div>
+      )}
+      {item.data.keyTech && item.data.keyTech.length > 0 && (
+        <div class="company-meta-card md:col-span-2">
+          <p class="company-meta-label">关键技术 / 工艺</p>
+          <div class="flex flex-wrap gap-1.5">
+            {item.data.keyTech.map((t) => <span class="tag">{t}</span>)}
           </div>
-        )}
-        {item.data.cyclicality && (
-          <div>
-            <dt class="text-slate-500">周期特征</dt>
-            <dd class="text-slate-800 dark:text-slate-200 mt-0.5">{item.data.cyclicality}</dd>
-          </div>
-        )}
-        {item.data.keyTech && item.data.keyTech.length > 0 && (
-          <div class="sm:col-span-2">
-            <dt class="text-slate-500">关键技术 / 工艺</dt>
-            <dd class="mt-1 flex flex-wrap gap-1.5">
-              {item.data.keyTech.map((t) => <span class="tag">{t}</span>)}
-            </dd>
-          </div>
-        )}
-        {item.data.representativeCompanies && item.data.representativeCompanies.length > 0 && (
-          <div class="sm:col-span-2">
-            <dt class="text-slate-500">代表公司</dt>
-            <dd class="text-slate-800 dark:text-slate-200 mt-0.5">
-              {item.data.representativeCompanies.join('、')}
-            </dd>
-          </div>
-        )}
-      </dl>
-    </div>
+        </div>
+      )}
+      {item.data.representativeCompanies && item.data.representativeCompanies.length > 0 && (
+        <div class="company-meta-card md:col-span-2">
+          <p class="company-meta-label">代表公司</p>
+          <p class="company-meta-text">{item.data.representativeCompanies.join('、')}</p>
+        </div>
+      )}
+    </section>
   )}
 
   <Content />

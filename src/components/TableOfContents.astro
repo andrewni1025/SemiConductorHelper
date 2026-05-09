@@ -1,0 +1,75 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props as Props;
+const filtered = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+{filtered.length > 0 && (
+  <aside class="toc-aside hidden xl:block">
+    <div class="toc-sticky">
+      <p class="toc-eyebrow">目录</p>
+      <nav>
+        <ul class="toc-list">
+          {filtered.map((h) => (
+            <li class={h.depth === 3 ? 'toc-item-l3' : 'toc-item-l2'}>
+              <a
+                href={`#${h.slug}`}
+                class="toc-link"
+                data-toc-slug={h.slug}
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </aside>
+)}
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-toc-slug]');
+  if (links.length > 0) {
+    const setActive = (slug: string | null) => {
+      links.forEach((l) => {
+        const matched = l.getAttribute('data-toc-slug') === slug;
+        l.classList.toggle('toc-link-active', matched);
+      });
+    };
+
+    const observed: HTMLElement[] = [];
+    links.forEach((l) => {
+      const id = l.getAttribute('data-toc-slug');
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (el) observed.push(el);
+    });
+
+    let lastActive: string | null = null;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) {
+          const id = (visible[0].target as HTMLElement).id;
+          if (id !== lastActive) {
+            lastActive = id;
+            setActive(id);
+          }
+        }
+      },
+      { rootMargin: '-72px 0px -65% 0px' },
+    );
+    observed.forEach((el) => obs.observe(el));
+  }
+</script>

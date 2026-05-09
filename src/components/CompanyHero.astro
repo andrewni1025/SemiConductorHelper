@@ -1,0 +1,145 @@
+---
+import {
+  getStock,
+  changePct,
+  distFromHighPct,
+  rangePosition,
+  formatCurrency,
+  formatMarketCapUSD,
+  latestSnapshot,
+} from '../lib/snapshot';
+
+interface Props {
+  slug: string;
+  name: string;
+  nameEn?: string;
+  ticker?: string;
+  country?: string;
+  segment: string;
+  moat?: string;
+  keyPeople?: string[];
+  customers?: string[];
+  competitors?: string[];
+  website?: string;
+  tags?: string[];
+}
+
+const props = Astro.props as Props;
+const stock = getStock(props.slug);
+const change = stock ? changePct(stock) : null;
+const distHigh = stock ? distFromHighPct(stock) : null;
+const rangePos = stock ? rangePosition(stock) : null;
+
+const initialsSource = props.nameEn ?? props.name;
+const initials = initialsSource
+  .replace(/[（）()]/g, ' ')
+  .split(/[\s\-_/]+/)
+  .filter(Boolean)
+  .map((w) => w[0])
+  .slice(0, 2)
+  .join('')
+  .toUpperCase();
+---
+
+<section class="company-hero not-prose">
+  <div class="company-hero-grid">
+    <div class="company-hero-main">
+      <div class="company-hero-meta">
+        <span class="company-hero-eyebrow">
+          <span class="pulse-dot"></span>
+          公司档案 · {props.segment}
+        </span>
+        {props.country && <span class="company-hero-country">{props.country}</span>}
+      </div>
+
+      <div class="company-hero-title-row">
+        <div class="company-logo" aria-hidden="true">{initials || props.name.slice(0, 2)}</div>
+        <div class="min-w-0">
+          <h1 class="company-hero-title">{props.name}</h1>
+          {props.nameEn && <p class="company-hero-subtitle">{props.nameEn}</p>}
+        </div>
+      </div>
+
+      {props.moat && (
+        <p class="company-hero-moat">
+          <span class="company-hero-moat-label">护城河</span>
+          {props.moat}
+        </p>
+      )}
+
+      <div class="company-hero-tags">
+        {props.tags?.map((t) => <span class="tag">#{t}</span>)}
+        {props.keyPeople?.slice(0, 1).map((p) => (
+          <span class="tag tag-people">👤 {p}</span>
+        ))}
+        {props.website && (
+          <a
+            href={props.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="tag tag-link"
+          >
+            官网 ↗
+          </a>
+        )}
+      </div>
+    </div>
+
+    {stock ? (
+      <aside class="company-hero-stock">
+        <div class="company-hero-stock-head">
+          <span class="company-hero-ticker">{stock.ticker}</span>
+          {latestSnapshot && (
+            <span class="company-hero-snapdate">收盘 · {latestSnapshot.date}</span>
+          )}
+        </div>
+
+        <div class="company-hero-price-row">
+          <span class="company-hero-price">{formatCurrency(stock.price, stock.currency)}</span>
+          {change !== null && (
+            <span class={`company-hero-change ${change >= 0 ? 'is-up' : 'is-down'}`}>
+              {change >= 0 ? '▲' : '▼'} {change >= 0 ? '+' : ''}{change.toFixed(2)}%
+            </span>
+          )}
+        </div>
+
+        <dl class="company-hero-stats">
+          <div>
+            <dt>Forward PE</dt>
+            <dd>{stock.forwardPE ? stock.forwardPE.toFixed(1) : '—'}</dd>
+          </div>
+          <div>
+            <dt>市值</dt>
+            <dd>{formatMarketCapUSD(stock.marketCap, stock.currency)}</dd>
+          </div>
+          <div>
+            <dt>距 52w 高</dt>
+            <dd class={(distHigh ?? 0) >= -3 ? 'is-near-high' : ''}>
+              {distHigh !== null ? `${distHigh.toFixed(1)}%` : '—'}
+            </dd>
+          </div>
+          <div>
+            <dt>52w 区间</dt>
+            <dd class="is-range">
+              {formatCurrency(stock.fiftyTwoWeekLow, stock.currency)} → {formatCurrency(stock.fiftyTwoWeekHigh, stock.currency)}
+            </dd>
+          </div>
+        </dl>
+
+        {rangePos !== null && (
+          <div class="company-hero-rangebar" title={`52w 区间位置 ${rangePos.toFixed(0)}%`}>
+            <div class="company-hero-rangebar-fill" style={`width: ${rangePos}%`}></div>
+            <div class="company-hero-rangebar-marker" style={`left: ${rangePos}%`}></div>
+          </div>
+        )}
+      </aside>
+    ) : props.ticker ? (
+      <aside class="company-hero-stock company-hero-stock-empty">
+        <div class="company-hero-stock-head">
+          <span class="company-hero-ticker">{props.ticker}</span>
+        </div>
+        <p class="text-xs text-slate-500 mt-2">暂无最新快照</p>
+      </aside>
+    ) : null}
+  </div>
+</section>
