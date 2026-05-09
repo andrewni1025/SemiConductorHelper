@@ -8,7 +8,9 @@ import tailwindcss from '@tailwindcss/vite';
 // 部署 URL: https://<your-github-username>.github.io/SemiConductorHelper/
 // 如果将来绑定自定义域名，把 site 改掉，base 改成 '/' 即可
 const SITE = process.env.SITE_URL || 'https://example.github.io';
-const BASE = process.env.BASE_PATH || '/SemiConductorHelper';
+const RAW_BASE = process.env.BASE_PATH || '/SemiConductorHelper';
+// 确保 base 以 '/' 结尾（避免 ${base}intro 拼成 /xxxintro）
+const BASE = RAW_BASE.endsWith('/') ? RAW_BASE : `${RAW_BASE}/`;
 
 export default defineConfig({
   site: SITE,
