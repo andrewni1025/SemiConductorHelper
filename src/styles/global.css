@@ -4,20 +4,20 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ─────────────────────────────────────────────
-   主题：稳重 + 科技感（半导体行业氛围）
-   主色：石墨蓝；强调：青蓝；正文：深灰
+   主题：深空 + 电光青（半导体 / 电路 / 数据流氛围）
+   主色：cyan/teal；底色：石墨黑；正文：深灰
    ───────────────────────────────────────────── */
 @theme {
-  --color-brand-50:  #f0f7fb;
-  --color-brand-100: #d9ecf5;
-  --color-brand-200: #b3d6e9;
-  --color-brand-300: #7ab4d4;
-  --color-brand-400: #3d8db8;
-  --color-brand-500: #1f6e9c;
-  --color-brand-600: #145880;
-  --color-brand-700: #0f4666;
-  --color-brand-800: #0c3650;
-  --color-brand-900: #08263a;
+  --color-brand-50:  #ecfeff;
+  --color-brand-100: #cffafe;
+  --color-brand-200: #a5f3fc;
+  --color-brand-300: #67e8f9;
+  --color-brand-400: #22d3ee;
+  --color-brand-500: #06b6d4;
+  --color-brand-600: #0891b2;
+  --color-brand-700: #0e7490;
+  --color-brand-800: #155e75;
+  --color-brand-900: #164e63;
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, "PingFang SC",
     "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
@@ -87,4 +87,74 @@ a {
   @apply inline-block text-xs px-2 py-0.5 rounded-full
          bg-brand-50 text-brand-700 dark:bg-brand-900/40 dark:text-brand-200
          border border-brand-200/60 dark:border-brand-800;
+}
+
+/* ─────────────────────────────────────────────
+   首屏专用：电路网格 + 青色光晕
+   ───────────────────────────────────────────── */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(34, 211, 238, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 80%);
+}
+
+.dark .hero-grid {
+  background-image:
+    linear-gradient(to right, rgba(103, 232, 249, 0.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(103, 232, 249, 0.10) 1px, transparent 1px);
+}
+
+.hero-glow {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.18), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.12), transparent 55%);
+}
+
+.dark .hero-glow {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.30), transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.22), transparent 60%);
+}
+
+.hero-title-gradient {
+  background: linear-gradient(120deg, #0e7490 0%, #06b6d4 50%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .hero-title-gradient {
+  background: linear-gradient(120deg, #ffffff 0%, #a5f3fc 55%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-glow {
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.4),
+              0 8px 30px -8px rgba(6, 182, 212, 0.55);
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.6),
+              0 10px 36px -6px rgba(6, 182, 212, 0.7);
+}
+
+.pulse-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #22d3ee;
+  box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.7);
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0%   { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.7); }
+  70%  { box-shadow: 0 0 0 10px rgba(34, 211, 238, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
 }
