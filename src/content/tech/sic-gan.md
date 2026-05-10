@@ -143,8 +143,8 @@ SiC 衬底常见缺陷：基面位错（BPD）、螺位错（TSD）、micropipe�
 
 ## 推荐阅读
 
-- [HBM 高带宽存储](./hbm)——AI 算力链的存储瓶颈
-- [CoWoS 与先进封装](./cowos)——AI 算力链的封装瓶颈
-- [TSMC 公司档案](../../companies/tsmc)（功率器件代工部分）
-- [产业链全景图](../../intro/03-supply-chain-overview)
+- [HBM 高带宽存储](../hbm/)——AI 算力链的存储瓶颈
+- [CoWoS 与先进封装](../cowos/)——AI 算力链的封装瓶颈
+- [TSMC 公司档案](../../companies/tsmc/)（功率器件代工部分）
+- [产业链全景图](../../intro/03-supply-chain-overview/)
 - 外部参考：Yole Group SiC/GaN 年度报告、TrendForce、SemiconductorX SiC Power Fabs、Wolfspeed/ST/Infineon 投资者日

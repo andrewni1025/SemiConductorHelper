@@ -39,7 +39,7 @@ updated: 2026-05-10
 
 - HBM 价格同比 +30–40%（来源：[GPUNex 2026](https://www.gpunex.com/blog/gpu-shortage-hbm-crisis-2026/)）
 - HBM 已占 DRAM 晶圆产能 **23%**（来源：[tech-insider 2026](https://tech-insider.org/memory-chip-shortage-2026-ai-consumer-electronics/)）——意味着普通 DDR5 / LPDDR5 也跟着涨
-- Micron Q2 FY26 营收 $23.9B（+195% YoY），毛利率 74.9%（来源：本仓库 [2026-W19 周报](../../weekly/2026-W19/)）
+- Micron Q2 FY26 营收 $23.9B（+195% YoY），毛利率 74.9%（来源：本仓库 [2026-W19 周报](../../weekly/2026-w19/)）
 - SK Hynix Q4 2025 营收 $17.5B（+47%），营业利润率 49%（同上）
 
 > **认知点**：这一轮上行的核心驱动是 **AI**，而不是传统 PC / 手机。HBM 不仅自己涨，还把 DRAM 整体晶圆产能挤走——这是"周期 + 结构性"叠加。
@@ -60,7 +60,7 @@ updated: 2026-05-10
 
 - **CXMT（长鑫）**：DDR4 / LPDDR4 国内份额上升，DDR5 已小批量出货；**HBM 是必须攻克的战场**
 - **YMTC（长江存储）**：3D NAND 200+ 层节点已突破，但被列入 BIS 实体清单后扩产受限
-- **MATCH Act 风险**：一旦把"维护服务"也禁掉，CXMT / YMTC 的存量设备运营都会受影响（来源：本仓库 [2026-W19 周报](../../weekly/2026-W19/)）
+- **MATCH Act 风险**：一旦把"维护服务"也禁掉，CXMT / YMTC 的存量设备运营都会受影响（来源：本仓库 [2026-W19 周报](../../weekly/2026-w19/)）
 - **替代节奏**：DRAM 国产化率从 < 5% 逐步抬升至 ~10%（2025 年估计），但 HBM 仍 ~0%
 
 ## 投资视角
@@ -81,4 +81,4 @@ updated: 2026-05-10
 - [Fabless 无晶圆设计](../fabless/)（NVIDIA / AMD 是 HBM 最大客户）
 - [先进封装](../advanced-packaging/)（HBM 的 TSV 堆叠 + CoWoS 集成）
 - [一颗芯片是怎么造出来的](../../intro/02-how-a-chip-is-made/)
-- [2026-W19 周报](../../weekly/2026-W19/)
+- [2026-W19 周报](../../weekly/2026-w19/)

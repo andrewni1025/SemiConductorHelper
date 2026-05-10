@@ -44,7 +44,7 @@ updated: 2026-05-10
 
 ## 周期与产能
 
-- **CoWoS 月产能**：2024 年 ~1.5 万片 → 2025 年 ~7.5 万片 → 2026 年底目标 **120–130K 片**（来源：本仓库 [2026-W19 周报](../../weekly/2026-W19/) 及 [ainvest 2026](https://www.ainvest.com/news/nvidia-feynman-platform-clog-tsmc-cowos-supply-chain-2026-creating-critical-ai-compute-bottleneck-2603/)）
+- **CoWoS 月产能**：2024 年 ~1.5 万片 → 2025 年 ~7.5 万片 → 2026 年底目标 **120–130K 片**（来源：本仓库 [2026-W19 周报](../../weekly/2026-w19/) 及 [ainvest 2026](https://www.ainvest.com/news/nvidia-feynman-platform-clog-tsmc-cowos-supply-chain-2026-creating-critical-ai-compute-bottleneck-2603/)）
 - **CoWoS 已售罄至 2026 年底**，NVIDIA 一家锁定 60–70%
 - **HBM 需求挤压**：HBM 已占 DRAM 晶圆产能 23%——相当于把内存"前道"产能也卷进了 AI 链条
 - **下行风险**：CoWoS 是当前 AI 红利最直接受益者，但反过来也是 AI capex 拐点最先反应的环节
